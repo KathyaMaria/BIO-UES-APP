@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ContactenosFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="115dp"
+        android:paddingLeft="20dp"
+        android:text="Nombre Completo:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/nombreCompleto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:ems="10"
+        android:hint="Nombre"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="205dp"
+        android:paddingLeft="20dp"
+        android:text="Correo Electrónico:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/correoElectronico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/darker_gray"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="230dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingLeft="10dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginTop="295dp"
+        android:paddingLeft="20dp"
+        android:text="Mensaje:"/>
+
+    <EditText
+        android:id="@+id/mensajeTexto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/darker_gray"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:lines="2"
+        android:minLines="2"
+        android:maxLines="5"
+        android:scrollbars="vertical"
+        android:layout_marginTop="320dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingLeft="10dp" />
+
+    <Button
+        android:id="@+id/buttonEnviar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="395dp"
+        android:text="Enviar"
+        app:backgroundTint="#00BCD4" />
+
+    <ImageView
+        android:id="@+id/imageFacultadContactenos"
+        android:layout_width="85dp"
+        android:layout_height="114dp"
+        android:layout_marginTop="450dp"
+        android:paddingLeft="20dp"
+        android:src="@drawable/facultad_logo_azul" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginTop="450dp"
+        android:paddingLeft="20dp"
+        android:layout_marginLeft="90dp"
+        android:text="Universidad de El Salvador"
+        android:textSize="14dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginTop="470dp"
+        android:paddingLeft="20dp"
+        android:layout_marginLeft="90dp"
+        android:textSize="14dp"
+        android:text="Facultad de Ciencias Naturales y Matemáticas "
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginTop="510dp"
+        android:paddingLeft="20dp"
+        android:layout_marginLeft="90dp"
+        android:textSize="14dp"
+        android:text="Escuela de Biología "
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginTop="545dp"
+        android:paddingLeft="20dp"
+        android:layout_marginLeft="90dp"
+        android:textSize="14dp"
+        android:text="Final 25  Avenida Norte San Salvador Tel. 2511-2000, 2226-1948  "
+        />
+</FrameLayout>

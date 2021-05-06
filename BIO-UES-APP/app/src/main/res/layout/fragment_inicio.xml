@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".InicioFragment">
+
+    <ImageView
+        android:id="@+id/imageViewPortada"
+        android:layout_width="match_parent"
+        android:layout_height="377dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="2dp"
+        android:contentDescription="portada"
+        android:src="@drawable/portada" />
+
+    <TextView
+        android:id="@+id/descripcionIndex"
+        android:layout_width="343dp"
+        android:layout_height="263dp"
+        android:layout_below="@+id/imageViewPortada"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="26dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:gravity="left"
+        android:inputType="textMultiLine"
+        android:text="BIENVENIDO / A: \n\nTu plataforma de accceso a la información sobre las especies de la Biodiversidad salvadoreña.
+        \n\n BIO-UES es una plataforma para el almacenamiento de datos sobre las especies naturales administrado por la Escuela de Biologia de La Universidad de El Salvador."
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</RelativeLayout>
