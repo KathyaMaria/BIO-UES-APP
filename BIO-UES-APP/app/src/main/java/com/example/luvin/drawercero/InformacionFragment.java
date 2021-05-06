@@ -57,11 +57,11 @@ public class InformacionFragment extends Fragment {
 
     private List<Dato> getAllData(){
         return new ArrayList<Dato>() {{
-            add(new Dato("¿Qué es el sobrepeso?","Y en qué es diferente de la obesidad",  R.drawable.cangrejo1, "La obesidad se define como un aumento de composición de grasa corporal. Este aumento se traduce en un incremento del peso y aunque no todo incremento del peso corporal es debido a un aumento del tejido adiposo, en la práctica médica el concepto de obesidad está relacionado con el peso corporal. La obesidad debe ser entendida como una enfermedad crónica, de forma semejante que lo es la diabetes mellitus o la hipertensión arterial. (Fuente: Infosalus.com)\n" +
+            add(new Dato("Colección Cangrejos","Nueva Coleccion Cangrejo",  R.drawable.cangrejo1, "Los crustáceos constituyen un enorme y diverso grupo del reino animal, con grandes utilidades ecológicas, alimenticias y económicas; lo que ha permitido en muchas partes del mundo despertar un interés en el campo de la investigación. Uno de los subgrupos más importantes de Crustáceos Decápodos, lo constituyen los cangrejos tanto marinos como de agua dulce, los cuales se distribuyen desde mar adentro, costas ,playas, baja marea, esteros, zonas dulces, terrestres, ríos,  lagos, lagunas y  otros cuerpos de agua de menor volumen.\n" +
                     "\n "));
-            add(new Dato("¿Qué es el IMC?", "Por qué es importante saberlo",R.drawable.cangrejo2, ""));
-            add(new Dato("¿Cómo medir la cintura?", "Cómo saber si tienes la medida correcta",R.drawable.macroalga1, ""));
-            add(new Dato("Alimentos que acumulan grasa abdominal", "Y que debes evitar",R.drawable.macroalga2, ""));
+            add(new Dato("Colección Macrohongos", "Por qué es importante saberlo",R.drawable.cangrejo2, ""));
+            add(new Dato("Colección MacroAlgas", "¿Que son las MacroAlgas?",R.drawable.macroalga1, ""));
+            add(new Dato("Colección Moluscos", "¿Que son los Moluscos?'",R.drawable.moluscos1, ""));
 
 
         }};
