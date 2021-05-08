@@ -1,22 +1,31 @@
 package com.example.luvin.drawercero;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
+
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Spinner;
 
-public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
+import androidx.annotation.NonNull;
+import 	androidx.appcompat.widget.Toolbar;
 
+
+import com.google.android.material.navigation.NavigationView;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    Spinner tipoColeccion;
 
 
     @Override
@@ -40,33 +49,13 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView=(NavigationView)findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        NavigationView navigationView=findViewById(R.id.nav_view);
+       navigationView.setNavigationItemSelectedListener(this);
 
         FragmentManager fragmentManager=getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.contenedor,new InicioFragment()).commit();
 
-        /*SPINNER TIPO COLECCION
-        Spinner tipoColeccion=(Spinner) findViewById(R.id.spinnerTipoColeccion);
-        ArrayList<String> aList= new ArrayList<>();
-        aList.add("Humeda");
-        aList.add("Seca");
-        ArrayAdapter<String> adapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,aList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        tipoColeccion.setAdapter(adapter);
 
-        tipoColeccion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(adapterView.getContext(), (String) adapterView.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-*/
 
     }
 
@@ -103,7 +92,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         return super.onOptionsItemSelected(item);
     }
     @SuppressWarnings("StatementWithEmptyBody")
-    @Override
+
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         int id=item.getItemId();

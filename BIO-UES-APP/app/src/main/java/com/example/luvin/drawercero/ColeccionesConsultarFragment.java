@@ -1,34 +1,28 @@
 package com.example.luvin.drawercero;
 
-
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.example.luvin.drawercero.Fragment_Tab_Colecciones_Cangrejos;
-import com.example.luvin.drawercero.Fragment_Tab_Colecciones_MacroAlgas;
-import com.example.luvin.drawercero.Fragment_Tab_Colecciones_MacroHongos;
-import com.example.luvin.drawercero.Fragment_Tab_Colecciones_Moluscos;
-import com.example.luvin.drawercero.R;
+import androidx.fragment.app.FragmentManager;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.tabs.TabLayout;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ *  * A simple {@link Fragment} subclass.
  */
 public class ColeccionesConsultarFragment extends Fragment {
 
     private AppBarLayout appBar;
     private TabLayout tabs;
-    private ViewPager viewPager;
+
 
 
     public ColeccionesConsultarFragment() {
@@ -48,10 +42,12 @@ public class ColeccionesConsultarFragment extends Fragment {
 
         tabs.setTabTextColors(Color.parseColor("#FFFFFF"),Color.parseColor("#FFFFFF"));
         appBar.addView(tabs);
+        MyAdapter mAdapter;
+        ViewPager viewPager;
 
         viewPager=(ViewPager)view.findViewById(R.id.pager);
-        ViewPagerAdapter pagerAdapter=new ViewPagerAdapter(getFragmentManager());
-        viewPager.setAdapter(pagerAdapter);
+        mAdapter = new MyAdapter(getFragmentManager());
+        viewPager.setAdapter(mAdapter);
         tabs.setupWithViewPager(viewPager);
 
         return view;
@@ -63,12 +59,12 @@ public class ColeccionesConsultarFragment extends Fragment {
         super.onDestroy();
     }
 
-    public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+    public class MyAdapter extends FragmentPagerAdapter {
 
-
-        public ViewPagerAdapter(FragmentManager fragmentManager) {
-            super(fragmentManager);
+        public MyAdapter(FragmentManager fm) {
+            super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         }
+
 
         @Override
         public Fragment getItem(int position) {

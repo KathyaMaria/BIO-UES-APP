@@ -7,7 +7,7 @@
     tools:context=".Coleccion.TabsConsultarColeccion.Fragment_Tab_Colecciones_Moluscos">
 
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecyclerMoluscos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

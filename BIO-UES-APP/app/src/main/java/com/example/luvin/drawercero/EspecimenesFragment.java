@@ -1,11 +1,25 @@
 package com.example.luvin.drawercero;
-
-
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+
+import androidx.fragment.app.FragmentManager;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
+
 
 
 /**

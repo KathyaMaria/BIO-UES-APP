@@ -1,7 +1,6 @@
 package com.example.luvin.drawercero;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 

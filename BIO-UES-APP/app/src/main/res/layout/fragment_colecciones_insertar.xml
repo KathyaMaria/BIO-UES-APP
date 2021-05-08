@@ -33,31 +33,29 @@
                 android:id="@+id/nombreColeccion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="80dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginRight="24dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_weight="1"
                 android:gravity="left"
                 android:text="Nombre Colección:"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.917" />
 
             <EditText
                 android:id="@+id/edtNombreColeccion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginRight="24dp"
-                android:inputType="textPersonName"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_weight="1"
+                android:inputType="textPersonName"
                 app:layout_constraintHorizontal_bias="0.509"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,33 +63,41 @@
                 android:id="@+id/tipoColeccion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginRight="24dp"
-                android:text="Tipo  Colección:"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:layout_weight="1"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Tipo  Colección:"
                 app:layout_constraintVertical_bias="0.227" />
-            <Spinner
-                android:id="@+id/spinnerTipoColeccion"
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:id="@+id/tipoColecciones"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginRight="24dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.47"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent">
 
-            <android.support.constraint.ConstraintLayout
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextViewColecciones"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:layout_weight="1"
+                    android:text="Humeda"
+                    android:inputType="none"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="88dp"
                 android:orientation="vertical">
@@ -103,7 +109,7 @@
                     android:layout_toRightOf="@+id/buttonIngresar"
                     android:gravity="center|left"
                     android:text="CANCELAR"
-                    app:backgroundTint="#96A6A8"
+                    android:backgroundTint="#96A6A8"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.783"
@@ -123,7 +129,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.659" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 
