@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else
             if (id==R.id.nav_colecciones_consultar){
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new ColeccionesConsultarFragment()).commit();
+                fragmentManager.beginTransaction().replace(R.id.contenedor, new InformacionFragment()).commit();
             }
             else
             if (id==R.id.nav_colecciones_insertar){
@@ -122,10 +122,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         if (id==R.id.nav_contactenos) {
                             fragmentManager.beginTransaction().replace(R.id.contenedor, new ContactenosFragment()).commit();
                         }
-                        else
+                        /*else
                             if (id==R.id.nav_informacion) {
                                 fragmentManager.beginTransaction().replace(R.id.contenedor, new InformacionFragment()).commit();
-                            }
+                            }*/
 
          DrawerLayout drawer=(DrawerLayout)findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

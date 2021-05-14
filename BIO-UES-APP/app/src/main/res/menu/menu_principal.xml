@@ -24,8 +24,6 @@
         <item
             android:id="@+id/nav_contactenos"
             android:title="Contactenos"/>
-        <item
-            android:id="@+id/nav_informacion"
-            android:title="Información"/>
+
     </group>
 </menu>
