@@ -1,13 +1,13 @@
-package com.example.luvin.drawercero;
+package com.example.luvin.drawercero.Coleccion;
 
-public class Dato {
+public class DatoConsultarColeccionPrueba {
     private String titulo;
     private String subtitulo;
     private int imagen;
     private String contenido;
 
     // Constructor de la clase
-    public Dato(String titulo, String subtitulo, int imagen, String contenido) {
+    public DatoConsultarColeccionPrueba(String titulo, String subtitulo, int imagen, String contenido) {
         this.titulo = titulo;
         this.subtitulo = subtitulo;
         this.imagen = imagen;

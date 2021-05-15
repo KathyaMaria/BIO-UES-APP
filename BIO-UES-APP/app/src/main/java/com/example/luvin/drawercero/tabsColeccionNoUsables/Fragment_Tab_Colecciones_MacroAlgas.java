@@ -1,4 +1,4 @@
-package com.example.luvin.drawercero;
+package com.example.luvin.drawercero.tabsColeccionNoUsables;
 
 import android.os.Bundle;
 
@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import java.util.ArrayList;
-import java.util.List;
+
+import com.example.luvin.drawercero.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ public class Fragment_Tab_Colecciones_MacroAlgas extends Fragment {
 
 
     private RecyclerView RecyclerViewMacroAlgas;
-    private com.example.luvin.drawercero.RecyclerViewMacroAlgas adaptadorMacroAlgas;
+    private com.example.luvin.drawercero.tabsColeccionNoUsables.RecyclerViewMacroAlgas adaptadorMacroAlgas;
     private LinearLayoutManager layoutManager;
     private ModeloMacroAlgas adaptador;
 

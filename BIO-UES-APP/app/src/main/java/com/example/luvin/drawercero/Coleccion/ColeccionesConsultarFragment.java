@@ -1,16 +1,21 @@
-package com.example.luvin.drawercero;
+package com.example.luvin.drawercero.Coleccion;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.fragment.app.FragmentManager;
+
+import com.example.luvin.drawercero.R;
+import com.example.luvin.drawercero.tabsColeccionNoUsables.Fragment_Tab_Colecciones_Cangrejos;
+import com.example.luvin.drawercero.tabsColeccionNoUsables.Fragment_Tab_Colecciones_MacroAlgas;
+import com.example.luvin.drawercero.tabsColeccionNoUsables.Fragment_Tab_Colecciones_MacroHongos;
+import com.example.luvin.drawercero.tabsColeccionNoUsables.Fragment_Tab_Colecciones_Moluscos;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 

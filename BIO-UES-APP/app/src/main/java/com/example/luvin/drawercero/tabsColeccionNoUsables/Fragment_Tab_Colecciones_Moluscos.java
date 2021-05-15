@@ -1,4 +1,4 @@
-package com.example.luvin.drawercero;
+package com.example.luvin.drawercero.tabsColeccionNoUsables;
 
 
 import android.os.Bundle;
@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.luvin.drawercero.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +22,7 @@ import java.util.List;
 public class Fragment_Tab_Colecciones_Moluscos extends Fragment {
 
     private RecyclerView RecyclerViewMoluscos;
-    private com.example.luvin.drawercero.RecyclerViewMoluscos adaptadorMoluscos;
+    private com.example.luvin.drawercero.tabsColeccionNoUsables.RecyclerViewMoluscos adaptadorMoluscos;
     private LinearLayoutManager layoutManager;
     private ModeloMoluscos adaptador;
 

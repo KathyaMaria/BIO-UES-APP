@@ -1,4 +1,4 @@
-package com.example.luvin.drawercero;
+package com.example.luvin.drawercero.tabsColeccionNoUsables;
 
 import android.os.Bundle;
 
@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.luvin.drawercero.R;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import java.util.ArrayList;
-
 
 
 /**
@@ -22,7 +22,7 @@ public class Fragment_Tab_Colecciones_Cangrejos extends Fragment {
 
 
     private RecyclerView RecyclerViewCangrejos;
-    private com.example.luvin.drawercero.RecyclerViewCangrejos adaptadorCangrejos;
+    private com.example.luvin.drawercero.tabsColeccionNoUsables.RecyclerViewCangrejos adaptadorCangrejos;
     private LinearLayoutManager layoutManager;
     private ModeloCangrejos adaptador;
 

@@ -1,4 +1,4 @@
-package com.example.luvin.drawercero;
+package com.example.luvin.drawercero.Coleccion;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,20 +15,22 @@ import androidx.appcompat.widget.Toolbar;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.luvin.drawercero.ExpandAndCollapseViewUtil;
+import com.example.luvin.drawercero.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class InformacionAdapter extends RecyclerView.Adapter<InformacionAdapter.ViewHolder> {
-    // Una lista de objetos "Dato"
-    private List<Dato> datos;
+    // Una lista de objetos "DatoConsultarColeccionPrueba"
+    private List<DatoConsultarColeccionPrueba> datoConsultarColeccionPruebas;
     // id del layout list_item_informacion
     private int layout;
     private OnItemClickListener itemClickListener;
     private Context context;
     private static final int DURATION = 250;
-       public InformacionAdapter(List<Dato> datos, int layout, OnItemClickListener listener) {
-        this.datos = datos;
+       public InformacionAdapter(List<DatoConsultarColeccionPrueba> datoConsultarColeccionPruebas, int layout, OnItemClickListener listener) {
+        this.datoConsultarColeccionPruebas = datoConsultarColeccionPruebas;
         this.layout = layout;
         this.itemClickListener = listener;
     }
@@ -43,12 +45,12 @@ public class InformacionAdapter extends RecyclerView.Adapter<InformacionAdapter.
 
     @Override
     public void onBindViewHolder( ViewHolder holder, int position) {
-        holder.bind(datos.get(position), itemClickListener);
+        holder.bind(datoConsultarColeccionPruebas.get(position), itemClickListener);
     }
 
     @Override
     public int getItemCount() {
-        return datos.size();
+        return datoConsultarColeccionPruebas.size();
     }
 
     public  class ViewHolder extends  RecyclerView.ViewHolder{
@@ -72,10 +74,10 @@ public class InformacionAdapter extends RecyclerView.Adapter<InformacionAdapter.
         }
 
 
-        public void bind(final Dato dato, final OnItemClickListener listener){
-            // Sustituimos los elementos por su valor dentro de la lista de datos
-            toolbarCard.setTitle(dato.getTitulo());
-            toolbarCard.setSubtitle(dato.getSubtitulo());
+        public void bind(final DatoConsultarColeccionPrueba datoConsultarColeccionPrueba, final OnItemClickListener listener){
+            // Sustituimos los elementos por su valor dentro de la lista de datoConsultarColeccionPruebas
+            toolbarCard.setTitle(datoConsultarColeccionPrueba.getTitulo());
+            toolbarCard.setSubtitle(datoConsultarColeccionPrueba.getSubtitulo());
             // Cree un menu dentro de res->layout->menu con el nombre card_menu
             toolbarCard.inflateMenu(R.menu.card_menu);
             toolbarCard.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -95,7 +97,7 @@ public class InformacionAdapter extends RecyclerView.Adapter<InformacionAdapter.
                     return true;
                 }
             });
-            textViewInfo.setText(dato.getContenido());
+            textViewInfo.setText(datoConsultarColeccionPrueba.getContenido());
             // Mostrar y ocultar la información
             unlinearl.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -126,13 +128,13 @@ public class InformacionAdapter extends RecyclerView.Adapter<InformacionAdapter.
             // Picasso mejora el uso de imagenes
             // square.github.io/picasso
 
-            Picasso.with(context).load(dato.getImagen())
+            Picasso.with(context).load(datoConsultarColeccionPrueba.getImagen())
                     .into(imageViewPoster);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onItemClick(dato, getAdapterPosition());
+                    listener.onItemClick(datoConsultarColeccionPrueba, getAdapterPosition());
                 }
             });
         }
@@ -140,6 +142,6 @@ public class InformacionAdapter extends RecyclerView.Adapter<InformacionAdapter.
 
 
     public interface OnItemClickListener{
-        void onItemClick(Dato dato, int position);
+        void onItemClick(DatoConsultarColeccionPrueba datoConsultarColeccionPrueba, int position);
     }
 }

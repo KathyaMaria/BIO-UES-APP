@@ -11,6 +11,11 @@ import androidx.annotation.NonNull;
 import 	androidx.appcompat.widget.Toolbar;
 
 
+import com.example.luvin.drawercero.Coleccion.ColeccionesInsertarFragment;
+import com.example.luvin.drawercero.Coleccion.InformacionFragment;
+import com.example.luvin.drawercero.Contactenos.ContactenosFragment;
+import com.example.luvin.drawercero.Especimenes.EspecimenesConsultarFragment;
+import com.example.luvin.drawercero.Investigaciones.InvestigacionesConsultarFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -20,7 +25,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -112,11 +116,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             else
                 if (id==R.id.nav_investigaciones) {
-                    fragmentManager.beginTransaction().replace(R.id.contenedor, new InvestigacionesFragment()).commit();
+                    fragmentManager.beginTransaction().replace(R.id.contenedor, new InvestigacionesConsultarFragment()).commit();
                 }
                 else
                     if (id==R.id.nav_especimenes) {
-                        fragmentManager.beginTransaction().replace(R.id.contenedor, new EspecimenesFragment()).commit();
+                        fragmentManager.beginTransaction().replace(R.id.contenedor, new EspecimenesConsultarFragment()).commit();
                     }
                     else
                         if (id==R.id.nav_contactenos) {
