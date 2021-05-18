@@ -1,0 +1,5 @@
+Options All -Indexes
+
+RewriteEngine On
+
+Rewrite ^BIO-UES-APP/guardarColeccion$ BIO-UES-APP/guardarColeccion.php

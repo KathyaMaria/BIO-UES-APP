@@ -1,8 +1,10 @@
 package com.example.luvin.drawercero.Investigaciones;
 
+import androidx.lifecycle.ViewModel;
+
 import java.util.Date;
 
-public class Investigacion {
+public class InvestigacionViewModel extends ViewModel {
 
     private int idColeccion;
     private int idUsuario;
@@ -22,13 +24,13 @@ public class Investigacion {
 
 
 
-    public Investigacion() {
+    public InvestigacionViewModel() {
     }
 
-    public Investigacion(int idColeccion, int idUsuario, int idTipo, int idZona,
-                         String nombreInv, Date fechaIngreso, String lugarInv, String responsableInv,
-                         String objetivo, String contacto, String unidadEnc, String otrasInst, String doc,
-                         String descripcionInv, String correo) {
+    public InvestigacionViewModel(int idColeccion, int idUsuario, int idTipo, int idZona,
+                                  String nombreInv, Date fechaIngreso, String lugarInv, String responsableInv,
+                                  String objetivo, String contacto, String unidadEnc, String otrasInst, String doc,
+                                  String descripcionInv, String correo) {
         this.idColeccion = idColeccion;
         this.idUsuario = idUsuario;
         this.idTipo = idTipo;
@@ -168,7 +170,7 @@ public class Investigacion {
 
     @Override
     public String toString() {
-        return "Investigacion{" +
+        return "InvestigacionViewModel{" +
                 "nombreInv='" + nombreInv + '\'' +
                 '}';
     }
