@@ -1,6 +1,8 @@
 package com.example.luvin.drawercero.Coleccion;
 
-public class Coleccion {
+import androidx.lifecycle.ViewModel;
+
+public class Coleccion extends ViewModel {
 
     private int id_coleccion;
     private String nombre_coleccion;
