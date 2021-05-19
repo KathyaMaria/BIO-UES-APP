@@ -1,6 +1,5 @@
-package com.example.luvin.drawercero;
+package com.example.luvin.drawercero.Contactenos;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -10,20 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.luvin.drawercero.Inicio.InicioViewModel;
-
-import java.util.ArrayList;
-
+import com.example.luvin.drawercero.R;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InicioFragment extends Fragment {
+public class ContactenosEnviarFragment extends Fragment {
+    ContactenosViewModel contactenosViewModel;
 
-    private InicioViewModel inicioViewModel;
-
-    public InicioFragment() {
+    public ContactenosEnviarFragment() {
         // Required empty public constructor
     }
 
@@ -32,11 +27,13 @@ public class InicioFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_inicio, container, false);
+        return inflater.inflate(R.layout.fragment_contactenos, container, false);
     }
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated ( @Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-        inicioViewModel = new ViewModelProvider(this).get(InicioViewModel.class);
+        contactenosViewModel = new ViewModelProvider(this).get(ContactenosViewModel.class);
         // TODO: Use the ViewModel
+
+
     }
 }

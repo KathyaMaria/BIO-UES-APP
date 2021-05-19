@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.AutoCompleteTextView;
 
 import androidx.fragment.app.FragmentManager;
 
+import com.example.luvin.drawercero.Especimenes.EspecimenesViewModel;
 import com.example.luvin.drawercero.R;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
@@ -28,7 +30,7 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class ContactenosFragment extends Fragment {
-
+    ContactenosViewModel contactenosViewModel;
 
     public ContactenosFragment() {
         // Required empty public constructor
@@ -41,5 +43,9 @@ public class ContactenosFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_contactenos, container, false);
     }
+    public void onActivityCreated ( @Nullable Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        contactenosViewModel = new ViewModelProvider(this).get(ContactenosViewModel.class);
 
+    }
 }

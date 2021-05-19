@@ -24,17 +24,17 @@
     <remote-repository>
       <option name="id" value="C:\Users\katia maria\AppData\Local\Android\Sdk\extras\m2repository" />
       <option name="name" value="C:\Users\katia maria\AppData\Local\Android\Sdk\extras\m2repository" />
-      <option name="url" value="file:/$PROJECT_DIR$/../../../../../katia%20maria/AppData/Local/Android/Sdk/extras/m2repository" />
+      <option name="url" value="file:/$USER_HOME$/katia%20maria/AppData/Local/Android/Sdk/extras/m2repository" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="C:\Users\katia maria\AppData\Local\Android\Sdk\extras\android\m2repository" />
       <option name="name" value="C:\Users\katia maria\AppData\Local\Android\Sdk\extras\android\m2repository" />
-      <option name="url" value="file:/$PROJECT_DIR$/../../../../../katia%20maria/AppData/Local/Android/Sdk/extras/android/m2repository" />
+      <option name="url" value="file:/$USER_HOME$/katia%20maria/AppData/Local/Android/Sdk/extras/android/m2repository" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="C:\Users\katia maria\AppData\Local\Android\Sdk\extras\google\m2repository" />
       <option name="name" value="C:\Users\katia maria\AppData\Local\Android\Sdk\extras\google\m2repository" />
-      <option name="url" value="file:/$PROJECT_DIR$/../../../../../katia%20maria/AppData/Local/Android/Sdk/extras/google/m2repository" />
+      <option name="url" value="file:/$USER_HOME$/katia%20maria/AppData/Local/Android/Sdk/extras/google/m2repository" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="C:\Users\katia maria\AppData\Local\Android\Sdk\extras\m2repository" />
@@ -65,6 +65,21 @@
       <option name="id" value="C:\Users\katia maria\AppData\Local\Android\Sdk\extras\google\m2repository" />
       <option name="name" value="C:\Users\katia maria\AppData\Local\Android\Sdk\extras\google\m2repository" />
       <option name="url" value="file:/$PROJECT_DIR$/../../../../Users/katia%20maria/AppData/Local/Android/Sdk/extras/google/m2repository" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="C:\Users\katia maria\AppData\Local\Android\Sdk\extras\m2repository" />
+      <option name="name" value="C:\Users\katia maria\AppData\Local\Android\Sdk\extras\m2repository" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../../../../../katia%20maria/AppData/Local/Android/Sdk/extras/m2repository" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="C:\Users\katia maria\AppData\Local\Android\Sdk\extras\android\m2repository" />
+      <option name="name" value="C:\Users\katia maria\AppData\Local\Android\Sdk\extras\android\m2repository" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../../../../../katia%20maria/AppData/Local/Android/Sdk/extras/android/m2repository" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="C:\Users\katia maria\AppData\Local\Android\Sdk\extras\google\m2repository" />
+      <option name="name" value="C:\Users\katia maria\AppData\Local\Android\Sdk\extras\google\m2repository" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../../../../../katia%20maria/AppData/Local/Android/Sdk/extras/google/m2repository" />
     </remote-repository>
   </component>
 </project>

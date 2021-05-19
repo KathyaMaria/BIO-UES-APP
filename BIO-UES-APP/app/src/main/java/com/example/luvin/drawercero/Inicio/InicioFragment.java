@@ -1,4 +1,4 @@
-package com.example.luvin.drawercero;
+package com.example.luvin.drawercero.Inicio;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,7 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.luvin.drawercero.Inicio.InicioViewModel;
+import com.example.luvin.drawercero.Investigaciones.InvestigacionViewModel;
+import com.example.luvin.drawercero.R;
 
 import java.util.ArrayList;
 
@@ -20,8 +21,8 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class InicioFragment extends Fragment {
-
     private InicioViewModel inicioViewModel;
+
 
     public InicioFragment() {
         // Required empty public constructor
