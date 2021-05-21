@@ -1,13 +1,20 @@
 <?php
-$hostname='localhost';
-$database='laravel4';
-$username='root';
-$password='';
 
-$conexion=new mysqli($hostname,$username,$password,$database);
-if($conexion->connect_error){
-	die("Lo Sentimos, el sitio web está experimentando problemas técnicos".$conexion->connect_error);
-}else {
-	echo "Successfully";
+class Conectar{
+	public static function conexion(){
+		
+		try{
+			$conexion = new PDO('mysql:host=127.0.0.1; dbname=laravel4','root','');
+			$conexion -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$conexion -> exec("SET CHARACTER SET UTF8");
+			
+	}catch(Exception $e){
+		
+		die("Error " . $e->getMessage());
+		echo "Linea del error " . $e->getLine();
+	}
+	
+	return $conexion;
+	}
 }
 ?>

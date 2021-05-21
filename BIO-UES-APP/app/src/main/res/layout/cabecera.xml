@@ -24,11 +24,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/tv_nombre_user_nav_header"
         android:paddingTop="@dimen/nav_cabecera_espacio_vertical"
         android:text="@string/nav_titulo_cabecera"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_email_user_nav_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/nav_subtitulo_cabecera"/>

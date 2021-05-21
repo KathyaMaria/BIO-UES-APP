@@ -2,10 +2,12 @@ package com.example.luvin.drawercero;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import 	androidx.appcompat.widget.Toolbar;
@@ -16,6 +18,8 @@ import com.example.luvin.drawercero.Coleccion.InformacionFragment;
 import com.example.luvin.drawercero.Contactenos.ContactenosFragment;
 import com.example.luvin.drawercero.Especimenes.EspecimenesConsultarFragment;
 import com.example.luvin.drawercero.Investigaciones.InvestigacionesConsultarFragment;
+import com.example.luvin.drawercero.Login.LoginFragment;
+import com.example.luvin.drawercero.Login.User;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -30,15 +34,30 @@ import com.google.android.material.snackbar.Snackbar;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     Spinner tipoColeccion;
-
+    private int ident;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        FragmentManager fragmentManager = getSupportFragmentManager();
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        View header = ((NavigationView)findViewById(R.id.nav_view)).getHeaderView(0);
+
+        try{
+            Bundle bundle = getIntent().getExtras();
+            user = bundle.getParcelable("DATA_USER");
+            if(bundle!=null){
+                ident = user.getId();
+                ((TextView) header.findViewById(R.id.tv_nombre_user_nav_header)).setText(user.getName());
+                ((TextView) header.findViewById(R.id.tv_email_user_nav_header)).setText(user.getEmail());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
 
         FloatingActionButton fab=(FloatingActionButton)findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -56,8 +75,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView=findViewById(R.id.nav_view);
        navigationView.setNavigationItemSelectedListener(this);
 
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.contenedor,new InicioFragment()).commit();
+
+        //fragmentManager.beginTransaction().replace(R.id.contenedor,new InicioFragment()).commit();
 
 
 
@@ -102,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id=item.getItemId();
 
         FragmentManager fragmentManager=getSupportFragmentManager();
+
 
         if (id==R.id.nav_inicio) {
             fragmentManager.beginTransaction().replace(R.id.contenedor, new InicioFragment()).commit();

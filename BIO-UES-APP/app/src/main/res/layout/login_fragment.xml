@@ -59,8 +59,9 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="15dp"
-                android:background="#009688"
                 android:text="Iniciar Sesión"
+                android:background="#009688"
+
                 android:textColor="#FFF"
                 android:textSize="18sp"
                 app:backgroundTint="#009688" />
@@ -77,6 +78,16 @@
                 android:textColor="#FFF"
                 android:textSize="18sp"
                 app:backgroundTint="#68070707" />
+
+            <TextView android:id="@+id/signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:text="¿Eres nuevo aqui? Registrate"
+                android:textColor="#0000FF"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:textSize="16dip"/>
 
         </LinearLayout>
     </FrameLayout>

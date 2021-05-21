@@ -10,7 +10,7 @@ $json=array();
 		
 		$conexion=mysqli_connect($hostname,$username,$password,$database);
 		
-		$consulta="SELECT email, password FROM usuars WHERE email= '{$email}' AND password = '{$password}'";
+		$consulta="SELECT email, password FROM users WHERE email= '{$email}' AND password = '{$password}'";
 		$resultado=mysqli_query($conexion,$consulta);
 
 		if($consulta){
