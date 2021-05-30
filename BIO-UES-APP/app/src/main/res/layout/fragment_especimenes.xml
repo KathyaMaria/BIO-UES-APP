@@ -9,7 +9,6 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,14 +16,14 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_marginStart="-4dp"
         android:layout_marginLeft="-4dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="2dp"
-        tools:layout_editor_absoluteX="393dp"
-        tools:layout_editor_absoluteY="79dp"
         android:layout_marginRight="2dp"
-        android:layout_alignParentRight="true">
+        tools:layout_editor_absoluteX="393dp"
+        tools:layout_editor_absoluteY="79dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,13 +39,13 @@
                 android:layout_marginTop="80dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:gravity="left"
                 android:text="Investigación a la que pertenece:"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Spinner
+            <!-- <Spinner
                 android:id="@+id/spinnerTipoInvestigacion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,7 +56,29 @@
                 android:layout_marginRight="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.47"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" /> -->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TextInputLayoutEspecimenes"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextViewEspecimenes"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:inputType="none"
+                    android:text="Investigación de campo" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/lugarColecta"
@@ -86,6 +107,34 @@
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
+                android:id="@+id/fechaColecta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:gravity="left"
+                android:text="Fecha de Colecta:"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/editTextFechaColecta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:clickable="true"
+                android:focusable="false"
+                android:inputType="date"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="parent" />
+            <TextView
                 android:id="@+id/horaColecta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -112,8 +161,9 @@
                 android:inputType="time"
                 app:layout_constraintEnd_toEndOf="parent" />
 
+
             <TextView
-                android:id="@+id/fechaColecta"
+                android:id="@+id/Colector"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -122,12 +172,12 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
                 android:gravity="left"
-                android:text="Fecha de Colecta:"
+                android:text="Recolector:"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <EditText
-                android:id="@+id/editTextFechaColecta"
+                android:id="@+id/editTextColector"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -135,10 +185,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
-                android:inputType="date"
-                android:focusable="false"
-                android:clickable="true"
-                android:maxLines="1"
+                android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
@@ -154,7 +201,7 @@
                 android:text="Reino:"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 app:layout_constraintStart_toStartOf="parent" />
-            <Spinner
+            <!--  <Spinner
                 android:id="@+id/spinnerReino"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -164,7 +211,29 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.47"/>
+                app:layout_constraintHorizontal_bias="0.47"/> -->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TextInputLayoutReino"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextViewReino"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:layout_weight="1"
+                    android:inputType="none"
+                    android:text="Animal" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/adjuntarImagenes"
@@ -219,6 +288,7 @@
                 android:hint="Latitud"
                 android:inputType="numberDecimal"
                 app:layout_constraintEnd_toEndOf="parent" />
+
             <EditText
                 android:id="@+id/editTextCoordenadaLongitud"
                 android:layout_width="match_parent"
@@ -229,8 +299,8 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
                 android:gravity="left"
-                android:inputType="numberDecimal"
                 android:hint="Longitud"
+                android:inputType="numberDecimal"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
@@ -269,7 +339,7 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
                 android:gravity="left"
-                android:text="Unidad Encargada:"
+                android:text="Tipo Muestra:"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/numeroDeContacto" />
@@ -347,6 +417,8 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

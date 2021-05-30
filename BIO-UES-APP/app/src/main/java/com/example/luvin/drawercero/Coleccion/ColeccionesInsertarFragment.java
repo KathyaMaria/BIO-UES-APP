@@ -67,8 +67,8 @@ public class ColeccionesInsertarFragment extends Fragment implements Response.Li
             }
         });
         ArrayList<String> arrayListColecciones;
-        ArrayAdapter<String> arrayAdapterColecciones;
-        String TipoColeccion[] = {"", "Humeda", "Seca"};
+        ArrayAdapter<String> arrayAdapterString TipoColeccion[] = {"", "Humeda", "Seca"};Colecciones;
+
 
 
         tipoColeccion = (TextInputLayout) view.findViewById(R.id.tipoColecciones);
