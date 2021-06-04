@@ -1,18 +1,19 @@
 package com.example.luvin.drawercero.Especimenes;
 
+import androidx.lifecycle.ViewModel;
+
 import java.sql.Time;
 import java.util.Date;
 
-public class Especimen {
+public class Especimen extends ViewModel {
 
-    private int idEspecimen;
-    private int idTaxonomia;
-    private int idSecuencia;
-    private int idEspecie;
+    private int id;
+    private int idTipoInvestigacion;
+    private String lugarColecta;
     private Date fechaColecta;
-    private Time horaSec;
+    private Time horaColecta;
     private String colector;
-    private String codigoEspecimen;
+    private String reino;
     private Float latitud;
     private Float longitud;
     private String tecnicaRecoleccion;
@@ -24,20 +25,17 @@ public class Especimen {
     private String habitat;
 
 
-    public Especimen() {
-    }
-
-    public Especimen(int idEspecimen, int idTaxonomia, int idSecuencia, int idEspecie, Date fechaColecta, Time horaSec, String colector,
-                     String codigoEspecimen, Float latitud, Float longitud, String tecnicaRecoleccion,
-                     String cantidadEsp, String tipoMuestra, String caracteristicas, Float peso, Float tamano, String habitat) {
-        this.idEspecimen = idEspecimen;
-        this.idTaxonomia = idTaxonomia;
-        this.idSecuencia = idSecuencia;
-        this.idEspecie = idEspecie;
+    public Especimen(int id, int idTipoInvestigacion, String lugarColecta, Date fechaColecta, Time horaColecta,
+                     String colector, String reino, Float latitud, Float longitud, String tecnicaRecoleccion,
+                     String cantidadEsp, String tipoMuestra, String caracteristicas, Float peso, Float tamano,
+                     String habitat) {
+        this.id=id;
+        this.idTipoInvestigacion = idTipoInvestigacion;
+        this.lugarColecta = lugarColecta;
         this.fechaColecta = fechaColecta;
-        this.horaSec = horaSec;
+        this.horaColecta = horaColecta;
         this.colector = colector;
-        this.codigoEspecimen = codigoEspecimen;
+        this.reino = reino;
         this.latitud = latitud;
         this.longitud = longitud;
         this.tecnicaRecoleccion = tecnicaRecoleccion;
@@ -49,36 +47,28 @@ public class Especimen {
         this.habitat = habitat;
     }
 
-    public int getIdEspecimen() {
-        return idEspecimen;
+    public int getId() {
+        return id;
     }
 
-    public void setIdEspecimen(int idEspecimen) {
-        this.idEspecimen = idEspecimen;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getIdTaxonomia() {
-        return idTaxonomia;
+    public int getIdTipoInvestigacion() {
+        return idTipoInvestigacion;
     }
 
-    public void setIdTaxonomia(int idTaxonomia) {
-        this.idTaxonomia = idTaxonomia;
+    public void setIdTipoInvestigacion(int idTipoInvestigacion) {
+        this.idTipoInvestigacion = idTipoInvestigacion;
     }
 
-    public int getIdSecuencia() {
-        return idSecuencia;
+    public String getLugarColecta() {
+        return lugarColecta;
     }
 
-    public void setIdSecuencia(int idSecuencia) {
-        this.idSecuencia = idSecuencia;
-    }
-
-    public int getIdEspecie() {
-        return idEspecie;
-    }
-
-    public void setIdEspecie(int idEspecie) {
-        this.idEspecie = idEspecie;
+    public void setLugarColecta(String lugarColecta) {
+        this.lugarColecta = lugarColecta;
     }
 
     public Date getFechaColecta() {
@@ -89,12 +79,12 @@ public class Especimen {
         this.fechaColecta = fechaColecta;
     }
 
-    public Time getHoraSec() {
-        return horaSec;
+    public Time getHoraColecta() {
+        return horaColecta;
     }
 
-    public void setHoraSec(Time horaSec) {
-        this.horaSec = horaSec;
+    public void setHoraColecta(Time horaColecta) {
+        this.horaColecta = horaColecta;
     }
 
     public String getColector() {
@@ -105,12 +95,12 @@ public class Especimen {
         this.colector = colector;
     }
 
-    public String getCodigoEspecimen() {
-        return codigoEspecimen;
+    public String getReino() {
+        return reino;
     }
 
-    public void setCodigoEspecimen(String codigoEspecimen) {
-        this.codigoEspecimen = codigoEspecimen;
+    public void setReino(String reino) {
+        this.reino = reino;
     }
 
     public Float getLatitud() {

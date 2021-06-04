@@ -168,6 +168,12 @@ public class LoginFragment extends AppCompatActivity {
     }
 
     private void iniciarSesion(String URL){
+
+        if (!validar()) return;
+
+        progreso = new ProgressDialog(this);
+        progreso.setMessage("Iniciando...");
+        progreso.show();
         StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

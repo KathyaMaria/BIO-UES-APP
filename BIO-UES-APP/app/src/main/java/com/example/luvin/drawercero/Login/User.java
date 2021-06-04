@@ -1,6 +1,8 @@
 package com.example.luvin.drawercero.Login;
 
-public class User {
+import androidx.lifecycle.ViewModel;
+
+public class User extends ViewModel {
     private int id;
     private String name, email, password;
 

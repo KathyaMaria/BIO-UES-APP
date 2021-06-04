@@ -77,7 +77,12 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
     public void registrar() {
-        StringRequest stringRequest;
+
+        if (!validar()) return;
+        progreso = new ProgressDialog(this);
+        progreso.setMessage("Iniciando...");
+        progreso.show();
+                StringRequest stringRequest;
         stringRequest = new StringRequest(Request.Method.POST, URL_SERVIDOR,
                 new Response.Listener<String>() {
 
