@@ -3,12 +3,16 @@ package com.example.luvin.drawercero.Especimenes;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +28,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -43,10 +50,16 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.Manifest.permission_group.CAMERA;
 import static android.app.Activity.RESULT_OK;
 
 
@@ -57,6 +70,11 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
     private EspecimenesViewModel especimenesViewModel;
     RequestQueue rq;
     JsonRequest jrq;
+
+
+
+    final int COD_SELECCIONA=10;
+    final int COD_FOTO=20;
 
     private static final int REQUEST_IMAGE_CAMERA=101;
     private static final int REQUEST_PERMISSION_CAMERA=101;
@@ -85,7 +103,7 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
     EditText peso;
     EditText tamaño;
     EditText habitat;
-
+    String path;
 
     public EspecimenesInsertarFragment() {
 
@@ -104,7 +122,6 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
         view = inflater.inflate(R.layout.fragment_colecciones_insertar, container, false);
         tipoInvestigacion = (TextInputLayout) view.findViewById(R.id.TextInputLayoutInvestigacions);
         investigaciones = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTextViewInvestigacion);
-
         lugarColecta=(EditText)view.findViewById(R.id.editTextLugarColecta);
         fechaColecta=(EditText)view.findViewById(R.id.editTextFechaColecta);
         horaColecta=(EditText)view.findViewById(R.id.editTextHoraColecta);
@@ -126,19 +143,34 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
         btnGuardar = (Button) view.findViewById(R.id.buttonIngresarEspecimenes);
         rq = Volley.newRequestQueue(getContext());
 
+
+      /*  if(validaPermisos()){
+            btnCamara.setEnabled(true);
+        }else{
+            btnCamara.setEnabled(false);
+        } */
+
+        if (ContextCompat.checkSelfPermission(getContext(), WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.CAMERA}, 1000);
+        }
+
         btnCamara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
-                    if(ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)==
-                            PackageManager.PERMISSION_GRANTED){
-                        goToCamera();
-                    }else{
-                        ActivityCompat.requestPermissions(getActivity(),new String[]{ Manifest.permission.CAMERA},
-                                REQUEST_PERMISSION_CAMERA);
-                    }
-                }else goToCamera();
+             //   if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+                 //  if(ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)==
+                    //        PackageManager.PERMISSION_GRANTED){
+                     //  abrirCamara();
+              tomarFoto(view);
             }
+                  //  }else{
+                     //   ActivityCompat.requestPermissions(getActivity(),new String[]{ Manifest.permission.CAMERA},
+                     //           REQUEST_PERMISSION_CAMERA);
+                  //  }
+               // }else abrirCamara();
+           // }
         });
 
         btnGuardar.setOnClickListener(new View.OnClickListener() {
@@ -186,6 +218,91 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
 
     }
 
+
+    String mCurrentPhotoPath;
+    private File createImageFile() throws IOException{
+
+        String timeStamp = new SimpleDateFormat("yyyyMddd_HHmss").format(new Date());
+        String imageFileName="Backup_"+timeStamp+"_";
+        File storageDir=getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image=File.createTempFile(imageFileName,".jpg",storageDir);
+        mCurrentPhotoPath=image.getAbsolutePath();
+        return image;
+    }
+
+    static final int REQUEST_TAKE_PHOTO=1;
+    public void tomarFoto(View view){
+        Intent takePictureInent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if(takePictureInent.resolveActivity(getContext().getPackageManager())!= null){
+            File photoFile=null;
+            try {
+                photoFile=createImageFile();
+            }catch (IOException ex){
+
+        }
+            if(photoFile!=null){
+            Uri photoUri=FileProvider.getUriForFile(getContext(),"com.example.luvin.drawercero",photoFile);
+            takePictureInent.putExtra(MediaStore.EXTRA_OUTPUT,photoUri);
+            startActivityForResult(takePictureInent,REQUEST_TAKE_PHOTO);
+            }
+        }
+    }
+
+
+
+
+     /* private boolean validaPermisos() {
+
+        if(Build.VERSION.SDK_INT<Build.VERSION_CODES.M){
+            return true;
+        }
+
+        if (getContext().checkSelfPermission(CAMERA) == PackageManager.PERMISSION_GRANTED)
+            if (getContext().checkSelfPermission(WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                return true;
+            }
+
+        if((shouldShowRequestPermissionRationale(CAMERA)) ||
+                (shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE))){
+            cargarDialogoRecomendacion();
+        }else{
+            requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
+        }
+
+        return false;
+    } */
+
+    private void abrirCamara(){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if(intent.resolveActivity(getActivity().getPackageManager()) == null){
+            startActivityForResult(intent, 1);
+        }
+    }
+
+    static final int REQUEST_IMAGE_CAPTURE=1;
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode==REQUEST_IMAGE_CAPTURE){
+            if(resultCode== RESULT_OK){
+
+                Bitmap bitmap=(Bitmap)data.getExtras().get("data");
+                imageView.setImageBitmap(bitmap);
+                Log.i("TAG","Result=>"+bitmap);
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+    /*
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imgBitmap = (Bitmap) extras.get("data");
+            imageView.setImageBitmap(imgBitmap);
+        }
+    }
+ */
     public void onErrorResponse(VolleyError error) {
         Toast.makeText(getContext(), "No Se pudó registrar el especimen " + error.toString() + nombreComun.getText().toString(),
                 Toast.LENGTH_LONG).show();
@@ -198,19 +315,169 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
         limpiarCajas();
     }
 
+    /*
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(requestCode==100){
+            if(grantResults.length==2 && grantResults[0]==PackageManager.PERMISSION_GRANTED
+                    && grantResults[1]==PackageManager.PERMISSION_GRANTED){
+                btnCamara.setEnabled(true);
+            }else{
+                solicitarPermisosManual();
+            }
+        }
+
+    } */
+
+    /*private void solicitarPermisosManual() {
+        final CharSequence[] opciones={"si","no"};
+        final AlertDialog.Builder alertOpciones=new AlertDialog.Builder(getContext());
+        alertOpciones.setTitle("¿Desea configurar los permisos de forma manual?");
+        alertOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (opciones[i].equals("si")){
+                    Intent intent=new Intent();
+                    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri=Uri.fromParts("package",getContext().getPackageName(),null);
+                    intent.setData(uri);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getContext().getApplicationContext(),"Los permisos no fueron aceptados",Toast.LENGTH_SHORT).show();
+                    dialogInterface.dismiss();
+                }
+            }
+        });
+        alertOpciones.show();
+    }
+*/
+   /*private void cargarDialogoRecomendacion() {
+        AlertDialog.Builder dialogo=new AlertDialog.Builder(getContext());
+        dialogo.setTitle("Permisos Desactivados");
+        dialogo.setMessage("Debe aceptar los permisos para el correcto funcionamiento de la App");
+
+        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
+            }
+        });
+        dialogo.show();
+    }*/
+
+  /*  public void onclick(View view) {
+        cargarImagen();
+    } */
+
+ /*   private void cargarImagen() {
+
+        final CharSequence[] opciones={"Tomar Foto","Cargar Imagen","Cancelar"};
+        final AlertDialog.Builder alertOpciones=new AlertDialog.Builder(getContext());
+        alertOpciones.setTitle("Seleccione una Opción");
+        alertOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (opciones[i].equals("Tomar Foto")){
+                    tomarFotografia();
+                }else{
+                    if (opciones[i].equals("Cargar Imagen")){
+                        Intent intent=new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        intent.setType("image/");
+                        startActivityForResult(intent.createChooser(intent,"Seleccione la Aplicación"),COD_SELECCIONA);
+                    }else{
+                        dialogInterface.dismiss();
+                    }
+                }
+            }
+        });
+        alertOpciones.show();
+
+    }*/
+
+    /* private void tomarFotografia() {
+        File fileImagen=new File(Environment.getExternalStorageDirectory(),RUTA_IMAGEN);
+        boolean isCreada=fileImagen.exists();
+        String nombreImagen="";
+        if(isCreada==false){
+            isCreada=fileImagen.mkdirs();
+        }
+
+        if(isCreada==true){
+            nombreImagen=(System.currentTimeMillis()/1000)+".jpg";
+        }
+
+
+        path= Environment.getExternalStorageDirectory()+
+                File.separator+RUTA_IMAGEN+File.separator+nombreImagen;
+
+        File imagen=new File(path);
+
+        Intent intent=null;
+        intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        ////
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N)
+        {
+            String authorities=getContext().getApplicationContext().getPackageName()+".provider";
+            Uri imageUri= FileProvider.getUriForFile(getContext(),authorities,imagen);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        }else
+        {
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagen));
+        }
+        startActivityForResult(intent,COD_FOTO);
+
+        ////
+    } */
+
+   /* @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==RESULT_OK){
+
+            switch (requestCode){
+                case COD_SELECCIONA:
+                    Uri miPath=data.getData();
+                    imagen.setImageURI(miPath);
+                    break;
+
+                case COD_FOTO:
+                    MediaScannerConnection.scanFile(this, new String[]{path}, null,
+                            new MediaScannerConnection.OnScanCompletedListener() {
+                                @Override
+                                public void onScanCompleted(String path, Uri uri) {
+                                    Log.i("Ruta de almacenamiento","Path: "+path);
+                                }
+                            });
+
+                    Bitmap bitmap= BitmapFactory.decodeFile(path);
+                    imagen.setImageBitmap(bitmap);
+
+                    break;
+            }
+
+
+        }
+    } */
+
+/*
     @Override
     //Permisos para abrir la camara
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (permissions.length>0&& grantResults[0]==PackageManager.PERMISSION_GRANTED){
-            goToCamera();
+            abrirCamara();
         }else{
             Toast.makeText(getContext(),"Se necesitan habilitar los permisos de la camara",Toast.LENGTH_SHORT).show();
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    */
+
+
+   /*  @Override
+   public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(requestCode==REQUEST_IMAGE_CAMERA){
             if(resultCode== RESULT_OK){
 
@@ -227,7 +494,9 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
         if (cameraIntent.resolveActivity(getActivity().getPackageManager()) == null){
             startActivityForResult(cameraIntent,REQUEST_IMAGE_CAMERA);
         }
-    }
+    } */
+
+
 
     void limpiarCajas() {
         investigaciones.setText("");
@@ -247,13 +516,6 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
 
 
     void registrar_especimen(String URL) {
-        //192.168.1.66(172.29.243.3
-       /* String url = "http://192.168.1.18/BIO-UES-APP/guardarColeccion.php?nombreColeccion=" +txtNombreColeccion.getText().toString()+
-                "&tipoColeccion="+ colecciones.getText().toString() ;
-
-        jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
-        rq.add(jrq);
-    }*/
         StringRequest stringRequest=new StringRequest(Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

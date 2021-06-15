@@ -169,7 +169,7 @@ public class LoginFragment extends AppCompatActivity {
 
     private void iniciarSesion(String URL){
 
-        if (!validar()) return;
+       // if (!validar()) return;
 
         progreso = new ProgressDialog(this);
         progreso.setMessage("Iniciando...");
