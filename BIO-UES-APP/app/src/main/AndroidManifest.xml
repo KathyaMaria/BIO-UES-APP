@@ -26,17 +26,21 @@
             android:label="BIO-UES"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
         <activity android:name=".Login.SignupActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
+
+
         <activity android:name=".Login.LoginFragment"
             android:theme="@style/AppTheme.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.android.fileprovider"

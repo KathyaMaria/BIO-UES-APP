@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import 	androidx.appcompat.widget.Toolbar;
 
 
+import com.example.luvin.drawercero.Coleccion.ColeccionesConsultarFragment;
 import com.example.luvin.drawercero.Coleccion.ColeccionesInsertarFragment;
 import com.example.luvin.drawercero.Coleccion.InformacionFragment;
 import com.example.luvin.drawercero.Contactenos.ContactenosFragment;
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
        navigationView.setNavigationItemSelectedListener(this);
 
 
-        //fragmentManager.beginTransaction().replace(R.id.contenedor,new InicioFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.contenedor,new InicioFragment()).commit();
 
 
 
@@ -123,7 +124,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentManager fragmentManager=getSupportFragmentManager();
 
 
-        if (id==R.id.nav_inicio) {
+
+       if (id==R.id.nav_inicio) {
             fragmentManager.beginTransaction().replace(R.id.contenedor, new InicioFragment()).commit();
         }
         else
@@ -131,10 +133,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentManager.beginTransaction().replace(R.id.contenedor, new InformacionFragment()).commit();
             }
             else
-            if (id==R.id.nav_colecciones_insertar){
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new ColeccionesInsertarFragment()).commit();
+            /*if (id==R.id.nav_colecciones_insertar){
+                fragmentManager.beginTransaction().replace(R.id.contenedor, new ColeccionesConsultarFragment()).commit();
             }
-            else
+            else */
                 if (id==R.id.nav_investigaciones) {
                     fragmentManager.beginTransaction().replace(R.id.contenedor, new InvestigacionesConsultarFragment()).commit();
                 }

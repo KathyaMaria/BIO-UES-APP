@@ -81,12 +81,6 @@ public class ColeccionesConsultarFragment extends Fragment {
                 case 1:
                     Fragment_Tab_Colecciones_MacroHongos fragment_tab_colecciones_MacroHongos=new Fragment_Tab_Colecciones_MacroHongos();
                     return fragment_tab_colecciones_MacroHongos;
-                case 2:
-                    Fragment_Tab_Colecciones_Cangrejos fragment_tab_ColeccionesCangrejos =new Fragment_Tab_Colecciones_Cangrejos();
-                    return fragment_tab_ColeccionesCangrejos;
-                case 3:
-                    Fragment_Tab_Colecciones_MacroAlgas fragment_tab_coleccionesMacroAlgas =new Fragment_Tab_Colecciones_MacroAlgas();
-                    return fragment_tab_coleccionesMacroAlgas;
             }
 
 
@@ -103,17 +97,12 @@ public class ColeccionesConsultarFragment extends Fragment {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    String tab_text_1=("Moluscos");
+                    String tab_text_1=("Insertar");
                     return tab_text_1;
                 case 1:
-                    String tab_text_2=("MacroHongos");
+                    String tab_text_2=("Consultar");
                     return tab_text_2;
-                case 2:
-                    String tab_text_3=("Cangrejos");
-                    return tab_text_3;
-                case 3:
-                    String tab_text_4=("MacroAlgas");
-                    return tab_text_4;
+
             }
 
 

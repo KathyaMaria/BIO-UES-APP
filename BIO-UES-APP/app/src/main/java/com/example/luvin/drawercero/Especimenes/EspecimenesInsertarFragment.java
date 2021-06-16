@@ -217,8 +217,6 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
         return view;
 
     }
-
-
     String mCurrentPhotoPath;
     private File createImageFile() throws IOException{
 
@@ -231,9 +229,10 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
     }
 
     static final int REQUEST_TAKE_PHOTO=1;
+
     public void tomarFoto(View view){
         Intent takePictureInent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if(takePictureInent.resolveActivity(getContext().getPackageManager())!= null){
+        if(takePictureInent.resolveActivity(getActivity().getPackageManager())!= null){
             File photoFile=null;
             try {
                 photoFile=createImageFile();
@@ -241,15 +240,12 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
 
         }
             if(photoFile!=null){
-            Uri photoUri=FileProvider.getUriForFile(getContext(),"com.example.luvin.drawercero",photoFile);
+            Uri photoUri=FileProvider.getUriForFile(getActivity(),"com.example.luvin.drawercero",photoFile);
             takePictureInent.putExtra(MediaStore.EXTRA_OUTPUT,photoUri);
-            startActivityForResult(takePictureInent,REQUEST_TAKE_PHOTO);
+            getActivity().startActivityForResult(takePictureInent,REQUEST_TAKE_PHOTO);
             }
         }
     }
-
-
-
 
      /* private boolean validaPermisos() {
 
@@ -274,8 +270,8 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
 
     private void abrirCamara(){
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if(intent.resolveActivity(getActivity().getPackageManager()) == null){
-            startActivityForResult(intent, 1);
+        if(intent.resolveActivity(getActivity().getPackageManager()) != null){
+            getActivity().startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
         }
     }
 

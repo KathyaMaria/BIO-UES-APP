@@ -219,6 +219,13 @@
                 android:layout_marginRight="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextViewColector"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:inputType="none"
+                    android:text="Angel Moreno" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -247,13 +254,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.47"/> -->
 
-            <AutoCompleteTextView
-                android:id="@+id/autoCompleteTextViewColector"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:inputType="none"
-                android:text="Angel Moreno" />
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/TextInputLayoutReino"
@@ -308,7 +309,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginRight="24dp"
-
+                    android:clickable="true"
                     android:src="@android:drawable/ic_menu_camera" />
 
                 <ImageButton

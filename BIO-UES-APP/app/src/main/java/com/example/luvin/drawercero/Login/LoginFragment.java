@@ -29,6 +29,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.luvin.drawercero.InicioFragment;
 import com.example.luvin.drawercero.MainActivity;
 import com.example.luvin.drawercero.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -169,7 +170,7 @@ public class LoginFragment extends AppCompatActivity {
 
     private void iniciarSesion(String URL){
 
-       // if (!validar()) return;
+       if (!validar()) return;
 
         progreso = new ProgressDialog(this);
         progreso.setMessage("Iniciando...");
@@ -178,7 +179,7 @@ public class LoginFragment extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 if(!response.isEmpty()){
-                    Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+                    Intent intent=new Intent(getApplicationContext(),MainActivity.class);
                     startActivity(intent);
                 }else {
                     Toast.makeText(LoginFragment.this,"Usuario o contraseña incorrecta", Toast.LENGTH_SHORT).show();

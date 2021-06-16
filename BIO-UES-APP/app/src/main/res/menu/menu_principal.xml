@@ -11,16 +11,16 @@
             android:title="Inicio"/>
         <item
             android:id="@+id/nav_colecciones_consultar"
-            android:title="Consultar Colecciones"/>
-        <item
-            android:id="@+id/nav_colecciones_insertar"
-            android:title="Insertar Nueva Coleccion"/>
+            android:title="Colecciones"/>
         <item
             android:id="@+id/nav_investigaciones"
             android:title="Investigaciones"/>
         <item
             android:id="@+id/nav_especimenes"
             android:title="Especimenes"/>
+        <item
+            android:id="@+id/nav_colecciones_insertar"
+            android:title="Reinos"/>
         <item
             android:id="@+id/nav_contactenos"
             android:title="Contactenos"/>
