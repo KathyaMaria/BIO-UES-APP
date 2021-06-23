@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.luvin.drawercero.R;
-import com.example.luvin.drawercero.tabsColeccionNoUsables.Fragment_Tab_Colecciones_Cangrejos;
-import com.example.luvin.drawercero.tabsColeccionNoUsables.Fragment_Tab_Colecciones_MacroAlgas;
 import com.example.luvin.drawercero.tabsColeccionNoUsables.Fragment_Tab_Colecciones_MacroHongos;
 import com.example.luvin.drawercero.tabsColeccionNoUsables.Fragment_Tab_Colecciones_Moluscos;
 import com.google.android.material.appbar.AppBarLayout;

@@ -82,7 +82,7 @@ public class ColeccionesInsertarFragment extends Fragment implements Response.Li
         colecciones.setAdapter(arrayAdapter);
         colecciones.setThreshold(1);
 
-        //Seleccion de los tipos de Coleccion
+        //Seleccion de los tipos de Dominio
         colecciones.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {

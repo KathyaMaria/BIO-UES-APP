@@ -8,7 +8,7 @@
     android:layout_margin="16dp"
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="4dp"
-    tools:context="com.example.luvin.drawercero.Coleccion.InformacionFragment">
+    tools:context="com.example.luvin.drawercero.Coleccion.InformacionDominioFragment">
 
     <!--  app:cardBackgroundColor="#E2E2E2"  -->
 

@@ -197,7 +197,7 @@ public class Fragment_Tab_Colecciones_Moluscos extends Fragment  implements Resp
             investigaciones.setAdapter(arrayAdapter);
             investigaciones.setThreshold(1);
 
-            //Seleccion de los tipos de Coleccion
+            //Seleccion de los tipos de Dominio
             investigaciones.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {

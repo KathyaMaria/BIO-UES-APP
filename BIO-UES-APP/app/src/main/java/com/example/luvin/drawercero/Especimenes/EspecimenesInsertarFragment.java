@@ -71,8 +71,6 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
     RequestQueue rq;
     JsonRequest jrq;
 
-
-
     final int COD_SELECCIONA=10;
     final int COD_FOTO=20;
 
@@ -106,7 +104,6 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
     String path;
 
     public EspecimenesInsertarFragment() {
-
         // Required empty public constructor
     }
 
@@ -198,7 +195,7 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
         investigaciones.setAdapter(arrayAdapter);
         investigaciones.setThreshold(1);
 
-        //Seleccion de los tipos de Coleccion
+        //Seleccion de los tipos de Dominio
         investigaciones.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
@@ -470,6 +467,7 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
     }
 
     */
+
 
 
    /*  @Override

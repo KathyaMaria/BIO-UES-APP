@@ -26,7 +26,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:backgroundTint="@android:color/darker_gray"
-            android:drawableLeft="@drawable/icon_email"
+            android:drawableLeft="@drawable/ic_person"
             android:ems="10"
             android:hint="Nombre"
             android:inputType="textPersonName"
@@ -38,7 +38,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:backgroundTint="@android:color/darker_gray"
-            android:drawableLeft="@drawable/icon_email"
+            android:drawableLeft="@drawable/ic_email"
             android:ems="10"
             android:hint="Correo Eléctronico"
             android:inputType="textPersonName"
@@ -52,24 +52,35 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
             android:backgroundTint="@android:color/darker_gray"
-            android:drawableLeft="@drawable/icon_lock"
+            android:drawableLeft="@drawable/ic_password"
             android:ems="10"
             android:hint="Contraseña"
             android:inputType="textPassword"
             android:paddingLeft="5dp" />
 
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPassword" />
+
         <Button
+
+            android:id="@+id/btn_registro_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="REGRISTRAR"
-            android:id="@+id/btn_registro_usuario"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="15dp"
+            android:text="Registrar"
             android:background="#009688"
             android:textColor="#FFF"
             android:textSize="18sp"
             app:backgroundTint="#009688"
-            android:padding="12dp"/>
+            />
 
         <TextView
             android:id="@+id/link_login"
@@ -80,7 +91,8 @@
             android:gravity="center"
             android:text="¿Ya eres miembro? Ingresa"
             android:textColor="#0000FF"
-            android:textSize="16dip" />
+            android:textSize="16dip"
+            android:layout_marginTop="25dp"/>
 
     </LinearLayout>
 </LinearLayout>

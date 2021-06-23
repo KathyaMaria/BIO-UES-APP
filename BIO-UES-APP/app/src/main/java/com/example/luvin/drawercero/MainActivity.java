@@ -2,7 +2,6 @@ package com.example.luvin.drawercero;
 
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,13 +12,10 @@ import androidx.annotation.NonNull;
 import 	androidx.appcompat.widget.Toolbar;
 
 
-import com.example.luvin.drawercero.Coleccion.ColeccionesConsultarFragment;
-import com.example.luvin.drawercero.Coleccion.ColeccionesInsertarFragment;
 import com.example.luvin.drawercero.Coleccion.InformacionFragment;
 import com.example.luvin.drawercero.Contactenos.ContactenosFragment;
 import com.example.luvin.drawercero.Especimenes.EspecimenesConsultarFragment;
 import com.example.luvin.drawercero.Investigaciones.InvestigacionesConsultarFragment;
-import com.example.luvin.drawercero.Login.LoginFragment;
 import com.example.luvin.drawercero.Login.User;
 import com.google.android.material.navigation.NavigationView;
 
@@ -134,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             else
             /*if (id==R.id.nav_colecciones_insertar){
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new ColeccionesConsultarFragment()).commit();
+                fragmentManager.beginTransaction().replace(R.id.contenedor, new DominioConsultarFragment()).commit();
             }
             else */
                 if (id==R.id.nav_investigaciones) {
@@ -150,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
                         /*else
                             if (id==R.id.nav_informacion) {
-                                fragmentManager.beginTransaction().replace(R.id.contenedor, new InformacionFragment()).commit();
+                                fragmentManager.beginTransaction().replace(R.id.contenedor, new InformacionDominioFragment()).commit();
                             }*/
 
          DrawerLayout drawer=(DrawerLayout)findViewById(R.id.drawer_layout);
