@@ -11,12 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +36,7 @@ import com.example.luvin.drawercero.InicioFragment;
 import com.example.luvin.drawercero.MainActivity;
 import com.example.luvin.drawercero.R;
 import com.google.android.material.textfield.TextInputEditText;
+import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,8 +48,8 @@ import java.util.Map;
 public class LoginFragment extends AppCompatActivity {
     private Button acceder;
     private TextView registrar;
-    private EditText email;
-    private EditText password;
+    private EditText editemail;
+    private EditText editpassword;
     private ProgressDialog progreso;
     private RequestQueue requestQueue;
     StringRequest stringRequest;
@@ -55,28 +59,81 @@ public class LoginFragment extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_fragment);
 
-        email = (EditText)findViewById(R.id.edtUsuario);
-        password = (EditText)findViewById(R.id.edtPassword);
+        editemail = (EditText)findViewById(R.id.edtUsuario);
+        editpassword = (EditText)findViewById(R.id.edtPassword);
         acceder = (Button)findViewById(R.id.btnLogin);
         registrar = (TextView)findViewById(R.id.signup);
         requestQueue = Volley.newRequestQueue(this);
+        ProgressBar progressBar;
+        progressBar=findViewById(R.id.progress);
+
+
 
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent =new Intent(getApplicationContext(),SignupActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 finish();
             }
         });
-
         acceder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String  email, password;
+
+                email = String.valueOf(editemail.getText());
+                password = String.valueOf(editpassword.getText());
+                if(!editemail.equals("")&&!editpassword.equals("")){
+                    progressBar.setVisibility(View.VISIBLE);
+                    //Start ProgressBar first (Set visibility VISIBLE)
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            //Starting Write and Read data with URL
+                            //Creating array for parameters
+                            String[] field = new String[2];
+                            field[0] = "email";
+                            field[1] = "password";
+                            //Creating array for data
+                            String[] data = new String[2];
+                            data[0] = email ;
+                            data[1] = password;
+                            PutData putData = new PutData("http://192.168.1.18/BIO-UES-APP/loginSevices/login.php",
+                                    "POST", field, data);
+                            if (putData.startPut()) {
+                                if (putData.onComplete()) {
+                                    progressBar.setVisibility(View.GONE);
+                                    String result = putData.getResult();
+                                    if(result.equals("Login Success")){
+                                        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }else {
+                                        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
+                                    }
+                                    //End ProgressBar (Set visibility to GONE)
+                                    //Log.i("PutData", result);
+                                }
+                            }
+                            //End Write and Read data with URL
+                        }
+                    });
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Todos los campos son requeridos", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+       /* acceder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                iniciarSesion("http://192.168.1.18/BIO-UES-APP/login_movil.php");
             }
-        });
+        }); */
     }
 
 
@@ -148,21 +205,21 @@ public class LoginFragment extends AppCompatActivity {
     private boolean validar() {
         boolean valid = true;
 
-        String sEmail = email.getText().toString();
-        String sPassword = password.getText().toString();
+        String sEmail = editemail.getText().toString();
+        String sPassword = editpassword.getText().toString();
 
         if (sEmail.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(sEmail).matches()) {
-            email.setError("Introduzca una dirección de correo electrónico válida");
+            editemail.setError("Introduzca una dirección de correo electrónico válida");
             valid = false;
         } else {
-            email.setError(null);
+            editemail.setError(null);
         }
 
-        if (sPassword.isEmpty() || password.length() < 4 || password.length() > 10) {
-            password.setError("Entre 4 y 10 caracteres alfanuméricos");
+        if (sPassword.isEmpty() || editpassword.length() < 4 || editpassword.length() > 10) {
+            editpassword.setError("Entre 4 y 10 caracteres alfanuméricos");
             valid = false;
         } else {
-            password.setError(null);
+            editpassword.setError(null);
         }
 
         return valid;
@@ -194,8 +251,8 @@ public class LoginFragment extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros = new HashMap<String,String>();
-                parametros.put("email",email.getText().toString());
-                parametros.put("password",password.getText().toString());
+                parametros.put("email",editemail.getText().toString());
+                parametros.put("password",editpassword.getText().toString());
                 return parametros;
             }
 

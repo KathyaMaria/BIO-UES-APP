@@ -38,11 +38,11 @@ class DataBase
     {
         $username = $this->prepareData($username);
         $password = $this->prepareData($password);
-        $this->sql = "select * from " . $table . " where username = '" . $username . "'";
+        $this->sql = "select * from " . $table . " where email = '" . $username . "'";
         $result = mysqli_query($this->connect, $this->sql);
         $row = mysqli_fetch_assoc($result);
         if (mysqli_num_rows($result) != 0) {
-            $dbusername = $row['username'];
+            $dbusername = $row['email'];
             $dbpassword = $row['password'];
             if ($dbusername == $username && password_verify($password, $dbpassword)) {
                 $login = true;
@@ -66,5 +66,4 @@ class DataBase
     }
 
 }
-
 ?>

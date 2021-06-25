@@ -130,4 +130,39 @@ public class SignupActivity extends AppCompatActivity {
         });
 
 }
+
+
+
+    private boolean validar() {
+        boolean valid = true;
+
+        String sNombre = editnombre.getText().toString();
+        String sEmail = editemail.getText().toString();
+        String sPassword = editpassword.getText().toString();
+
+
+        if (sNombre.isEmpty() || sNombre.length() < 3) {
+            editnombre.setError("Ingrese al menos 3 caracteres");
+            valid = false;
+        } else {
+           editnombre.setError(null);
+        }
+
+        if (sEmail.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(sEmail).matches()) {
+            editemail.setError("Dirección de correo electrónico no válida");
+            valid = false;
+        } else {
+            editemail.setError(null);
+        }
+
+        if (sPassword.isEmpty() || editpassword.length() < 4 || editpassword.length() > 10) {
+            editpassword.setError("Ingrese entre 4 a 10 caracteres alfanuméricos");
+            valid = false;
+        } else {
+            editpassword.setError(null);
+        }
+
+        return valid;
+    }
+
 }
