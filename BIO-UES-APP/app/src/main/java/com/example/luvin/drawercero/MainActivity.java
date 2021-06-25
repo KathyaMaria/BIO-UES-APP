@@ -1,5 +1,6 @@
 package com.example.luvin.drawercero;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.view.Menu;
@@ -11,9 +12,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import 	androidx.appcompat.widget.Toolbar;
 
-
+import com.example.luvin.drawercero.interfaces.IFragments;
 import com.example.luvin.drawercero.Coleccion.InformacionFragment;
 import com.example.luvin.drawercero.Contactenos.ContactenosFragment;
+import com.example.luvin.drawercero.Dominios.ConsultarListaDominiosFragment;
 import com.example.luvin.drawercero.Especimenes.EspecimenesConsultarFragment;
 import com.example.luvin.drawercero.Investigaciones.InvestigacionesConsultarFragment;
 import com.example.luvin.drawercero.Login.User;
@@ -28,7 +30,8 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener,IFragments {
 
     Spinner tipoColeccion;
     private int ident;
@@ -141,6 +144,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         fragmentManager.beginTransaction().replace(R.id.contenedor, new EspecimenesConsultarFragment()).commit();
                     }
                     else
+                    if (id==R.id.nav_dominios) {
+                        fragmentManager.beginTransaction().replace(R.id.contenedor, new ConsultarListaDominiosFragment()).commit();
+                    }
+                    else
                         if (id==R.id.nav_contactenos) {
                             fragmentManager.beginTransaction().replace(R.id.contenedor, new ContactenosFragment()).commit();
                         }
@@ -154,5 +161,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
+    }
 }

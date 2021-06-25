@@ -19,8 +19,8 @@
             android:id="@+id/nav_especimenes"
             android:title="Especimenes"/>
         <item
-            android:id="@+id/nav_colecciones_insertar"
-            android:title="Reinos"/>
+            android:id="@+id/nav_dominios"
+            android:title="Dominios"/>
         <item
             android:id="@+id/nav_contactenos"
             android:title="Contactenos"/>
