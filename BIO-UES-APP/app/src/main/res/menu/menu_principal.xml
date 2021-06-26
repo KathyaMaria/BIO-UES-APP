@@ -22,6 +22,10 @@
             android:id="@+id/nav_dominios"
             android:title="Dominios"/>
         <item
+            android:id="@+id/nav_especiesAmenazadas"
+            android:title="Especies en riesgo"/>
+
+        <item
             android:id="@+id/nav_contactenos"
             android:title="Contactenos"/>
 

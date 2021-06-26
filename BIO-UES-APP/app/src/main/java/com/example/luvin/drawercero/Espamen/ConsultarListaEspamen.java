@@ -1,5 +1,4 @@
-//Consultar Lista Dominios
-package com.example.luvin.drawercero.Dominios;
+package com.example.luvin.drawercero.Espamen;
 
 
 import android.app.ProgressDialog;
@@ -30,11 +29,12 @@ import com.example.luvin.drawercero.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.example.luvin.drawercero.Dominios.Dominio;
+import com.example.luvin.drawercero.Espamen.Espamen;
+import com.example.luvin.drawercero.VolleySingleton;
+
 import java.util.ArrayList;
 
-public class ConsultarListaDominiosFragment extends Fragment implements
-        Response.Listener<JSONObject>,Response.ErrorListener{
+public class ConsultarListaEspamen extends Fragment implements Response.Listener<JSONObject>,Response.ErrorListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -46,8 +46,8 @@ public class ConsultarListaDominiosFragment extends Fragment implements
 
     private OnFragmentInteractionListener mListener;
 
-    RecyclerView recyclerDominios;
-    ArrayList<Dominio> listaDominios;
+    RecyclerView recyclerEspamen;
+    ArrayList<Espamen> listaEspamen;
 
     ProgressDialog progress;
 
@@ -55,7 +55,7 @@ public class ConsultarListaDominiosFragment extends Fragment implements
     JsonObjectRequest jsonObjectRequest;
 
 
-    public ConsultarListaDominiosFragment() {
+    public ConsultarListaEspamen() {
         // Required empty public constructor
     }
 
@@ -65,11 +65,11 @@ public class ConsultarListaDominiosFragment extends Fragment implements
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ConsultarListaDominiosFragment.
+     * @return A new instance of fragment ConsultarListaEspamenFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ConsultarListaDominiosFragment newInstance(String param1, String param2) {
-        ConsultarListaDominiosFragment fragment = new ConsultarListaDominiosFragment();
+    public static ConsultarListaEspamen newInstance(String param1, String param2) {
+        ConsultarListaEspamen fragment = new ConsultarListaEspamen();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -89,13 +89,13 @@ public class ConsultarListaDominiosFragment extends Fragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vista=inflater.inflate(R.layout.fragment_consultar_lista_dominios, container, false);
+        View vista=inflater.inflate(R.layout.fragment_consultar_lista_espamen, container, false);
 
-        listaDominios=new ArrayList<>();
+        listaEspamen=new ArrayList<>();
 
-        recyclerDominios= (RecyclerView) vista.findViewById(R.id.idRecyclerListaDominios);
-        recyclerDominios.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        recyclerDominios.setHasFixedSize(true);
+        recyclerEspamen= (RecyclerView) vista.findViewById(R.id.idRecyclerListaEspamen);
+        recyclerEspamen.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        recyclerEspamen.setHasFixedSize(true);
 
        // request= Volley.newRequestQueue(getContext());
 
@@ -111,14 +111,12 @@ public class ConsultarListaDominiosFragment extends Fragment implements
         progress.setMessage("Consultando...");
         progress.show();
 
-        String ip=getString(R.string.ip2);
+        String ip=getString(R.string.ip);
 
-        String url=ip+"/BIO-UES-APP/ConsultarListaDominios.php";
-       // RequestQueue request = Volley.newRequestQueue((Context) mListener);
-       jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url, (String) null,this,this);
-        //jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,null);
-      // jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url, (String) null,this,this);
-        //request.add(jsonObjectRequest);
+        String url=ip+"/BIO-UES-APP/ConsultarListaEspamen.php";
+
+        jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url, (String) null,this,this);
+       // request.add(jsonObjectRequest);
         com.example.luvin.drawercero.VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
@@ -132,24 +130,27 @@ public class ConsultarListaDominiosFragment extends Fragment implements
 
     @Override
     public void onResponse(JSONObject response) {
-        Dominio dominio=null;
+        Espamen espamen=null;
 
-        JSONArray json=response.optJSONArray("dominios");
+        JSONArray json=response.optJSONArray("especie_amenazadas");
 
         try {
 
             for (int i=0;i<json.length();i++){
-                dominio=new Dominio();
+                espamen=new Espamen();
                 JSONObject jsonObject=null;
                 jsonObject=json.getJSONObject(i);
 
-                dominio.setId(jsonObject.optInt("id"));
-                dominio.setnombreDominio(jsonObject.optString("nombreDominio"));
-                listaDominios.add(dominio);
+                espamen.setIdEspamen(jsonObject.optInt("id"));
+                espamen.setIdRiesgo(jsonObject.optInt("idRiesgo"));
+                espamen.setNomEspamen(jsonObject.optString("nomEspamen"));
+                espamen.setNomComEspamen(jsonObject.optString("nomComEspamen"));
+                //espamen.setCatRiesgo(jsonObject.optString("catRiesgo"));
+                listaEspamen.add(espamen);
             }
             progress.hide();
-            DominiosAdapter adapter=new DominiosAdapter(listaDominios);
-            recyclerDominios.setAdapter(adapter);
+            EspamenAdapter adapter=new EspamenAdapter(listaEspamen);
+            recyclerEspamen.setAdapter(adapter);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -157,8 +158,6 @@ public class ConsultarListaDominiosFragment extends Fragment implements
                     " "+response, Toast.LENGTH_LONG).show();
             progress.hide();
         }
-
-
 
     }
 
@@ -185,8 +184,6 @@ public class ConsultarListaDominiosFragment extends Fragment implements
         super.onDetach();
         mListener = null;
     }
-
-
 
     /**
      * This interface must be implemented by activities that contain this

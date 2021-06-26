@@ -1,40 +1,5 @@
 //Consultar Lista Dominios
-package com.example.luvin.drawercero.Dominios;
-
-
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.graphics.Color;
-import android.net.Uri;
-import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.luvin.drawercero.R;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import com.example.luvin.drawercero.Dominios.Dominio;
-import java.util.ArrayList;
-
-public class ConsultarListaDominiosFragment extends Fragment implements
-        Response.Listener<JSONObject>,Response.ErrorListener{
+public class ConsultarListaDominiosFragment extends Fragment implements Response.Listener<JSONObject>,Response.ErrorListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -47,7 +12,7 @@ public class ConsultarListaDominiosFragment extends Fragment implements
     private OnFragmentInteractionListener mListener;
 
     RecyclerView recyclerDominios;
-    ArrayList<Dominio> listaDominios;
+    ArrayList<Dominios> listaDominios;
 
     ProgressDialog progress;
 
@@ -93,7 +58,7 @@ public class ConsultarListaDominiosFragment extends Fragment implements
 
         listaDominios=new ArrayList<>();
 
-        recyclerDominios= (RecyclerView) vista.findViewById(R.id.idRecyclerListaDominios);
+        recyclerDominios= (RecyclerView) vista.findViewById(R.id.idRecycler);
         recyclerDominios.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerDominios.setHasFixedSize(true);
 
@@ -111,15 +76,13 @@ public class ConsultarListaDominiosFragment extends Fragment implements
         progress.setMessage("Consultando...");
         progress.show();
 
-        String ip=getString(R.string.ip2);
+        String ip=getString(R.string.ip);
 
         String url=ip+"/BIO-UES-APP/ConsultarListaDominios.php";
-       // RequestQueue request = Volley.newRequestQueue((Context) mListener);
-       jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url, (String) null,this,this);
-        //jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,null);
-      // jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url, (String) null,this,this);
-        //request.add(jsonObjectRequest);
-        com.example.luvin.drawercero.VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
+
+        jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
+       // request.add(jsonObjectRequest);
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     @Override
@@ -132,19 +95,19 @@ public class ConsultarListaDominiosFragment extends Fragment implements
 
     @Override
     public void onResponse(JSONObject response) {
-        Dominio dominio=null;
+        Dominios dominio=null;
 
-        JSONArray json=response.optJSONArray("dominios");
+        JSONArray json=response.optJSONArray("dominio");
 
         try {
 
             for (int i=0;i<json.length();i++){
-                dominio=new Dominio();
+                dominio=new Dominios();
                 JSONObject jsonObject=null;
                 jsonObject=json.getJSONObject(i);
 
                 dominio.setId(jsonObject.optInt("id"));
-                dominio.setnombreDominio(jsonObject.optString("nombreDominio"));
+                dominio.setNombreDominio(jsonObject.optString("nombreDominio"));
                 listaDominios.add(dominio);
             }
             progress.hide();
@@ -157,8 +120,6 @@ public class ConsultarListaDominiosFragment extends Fragment implements
                     " "+response, Toast.LENGTH_LONG).show();
             progress.hide();
         }
-
-
 
     }
 
