@@ -89,7 +89,7 @@ public class SignupActivity extends AppCompatActivity {
                             data[0] = name;
                             data[1] = email ;
                             data[2] = password;
-                            PutData putData = new PutData("http://192.168.1.18/BIO-UES-APP/loginSevices/signup.php",
+                            PutData putData = new PutData("http://192.168.1.26/BIO-UES-APP/loginSevices/signup.php",
                                     "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {

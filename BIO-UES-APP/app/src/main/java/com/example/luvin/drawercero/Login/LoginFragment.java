@@ -100,7 +100,7 @@ public class LoginFragment extends AppCompatActivity {
                             String[] data = new String[2];
                             data[0] = email ;
                             data[1] = password;
-                            PutData putData = new PutData("http://192.168.1.18/BIO-UES-APP/loginSevices/login.php",
+                            PutData putData = new PutData("http://192.168.1.26/BIO-UES-APP/loginSevices/login.php",
                                     "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {

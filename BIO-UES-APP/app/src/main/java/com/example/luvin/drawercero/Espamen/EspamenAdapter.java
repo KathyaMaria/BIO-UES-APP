@@ -53,9 +53,11 @@ public class EspamenAdapter extends RecyclerView.Adapter<EspamenAdapter.EspamenH
 
     @Override
     public void onBindViewHolder(EspamenHolder holder, int position) {
-        holder.txtNombreComun.setText(listaEspamen.get(position).getIdEspamen().toString());
-        holder.txtCatRiesgo.setText(listaEspamen.get(position).getNomComEspamen().toString());
-       //holder.txtProfesion.setText(listaEspamen.get(position).getProfesion().toString());
+        holder.txtId.setText(listaEspamen.get(position).getIdEspamen().toString());
+        holder.txtIdRiesgo.setText(listaEspamen.get(position).getIdRiesgo().toString());
+        holder.txtNombreCientifico.setText(listaEspamen.get(position).getNomEspamen().toString());
+        holder.txtNombreComun.setText(listaEspamen.get(position).getNomComEspamen().toString());
+
     }
 
     @Override
@@ -65,13 +67,14 @@ public class EspamenAdapter extends RecyclerView.Adapter<EspamenAdapter.EspamenH
 
     public class EspamenHolder extends RecyclerView.ViewHolder{
 
-        TextView txtNombreComun,txtCatRiesgo,txtProfesion;
+        TextView txtNombreComun,txtNombreCientifico,txtId,txtIdRiesgo;
 
         public EspamenHolder(View itemView) {
             super(itemView);
+            txtId=(TextView) itemView.findViewById(R.id.txtId);
+            txtIdRiesgo=(TextView) itemView.findViewById(R.id.txtIdRiesgo);
+            txtNombreCientifico=(TextView)itemView.findViewById(R.id.txtNombreCientifico);
             txtNombreComun= (TextView) itemView.findViewById(R.id.txtNombreComun);
-            txtCatRiesgo= (TextView) itemView.findViewById(R.id.txtRiesgo);
-           // txtProfesion= (TextView) itemView.findViewById(R.id.txtProfesion);
 
         }
     }

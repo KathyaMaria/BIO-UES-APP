@@ -43,4 +43,5 @@ dependencies {
     implementation 'com.mcxiaoke.volley:library:1.0.+'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0'
+    compile 'com.itextpdf:itextg:5.5.10'
 }

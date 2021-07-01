@@ -39,10 +39,14 @@ public class ConsultarListaEspamen extends Fragment implements Response.Listener
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM3 = "param3";
+    private static final String ARG_PARAM4 = "param4";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String mParam3;
+    private String mParam4;
 
     private OnFragmentInteractionListener mListener;
 
@@ -68,11 +72,13 @@ public class ConsultarListaEspamen extends Fragment implements Response.Listener
      * @return A new instance of fragment ConsultarListaEspamenFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ConsultarListaEspamen newInstance(String param1, String param2) {
+    public static ConsultarListaEspamen newInstance(String param1, String param2,String param3, String param4) {
         ConsultarListaEspamen fragment = new ConsultarListaEspamen();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM3,param3);
+        args.putString(ARG_PARAM4,param4);
         fragment.setArguments(args);
         return fragment;
     }
@@ -83,6 +89,8 @@ public class ConsultarListaEspamen extends Fragment implements Response.Listener
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam3 = getArguments().getString(ARG_PARAM3);
+            mParam4 = getArguments().getString(ARG_PARAM4);
         }
     }
 
@@ -111,9 +119,9 @@ public class ConsultarListaEspamen extends Fragment implements Response.Listener
         progress.setMessage("Consultando...");
         progress.show();
 
-        String ip=getString(R.string.ip);
+        String ip=getString(R.string.ip2);
 
-        String url=ip+"/BIO-UES-APP/ConsultarListaEspamen.php";
+        String url=ip+"/BIO-UES-APP/ConsultarEspeciesAmen.php";
 
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url, (String) null,this,this);
        // request.add(jsonObjectRequest);
@@ -145,7 +153,6 @@ public class ConsultarListaEspamen extends Fragment implements Response.Listener
                 espamen.setIdRiesgo(jsonObject.optInt("idRiesgo"));
                 espamen.setNomEspamen(jsonObject.optString("nomEspamen"));
                 espamen.setNomComEspamen(jsonObject.optString("nomComEspamen"));
-                //espamen.setCatRiesgo(jsonObject.optString("catRiesgo"));
                 listaEspamen.add(espamen);
             }
             progress.hide();
