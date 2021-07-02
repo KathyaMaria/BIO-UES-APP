@@ -17,7 +17,7 @@
             android:layout_weight="2"/>
 
         <TextView
-            android:id="@+id/txtIdEspamen"
+            android:id="@+id/txtIdEspAmen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Identificador "
@@ -40,7 +40,7 @@
             android:layout_weight="2"/>
 
         <TextView
-            android:id="@+id/txtIdRiesgo"
+            android:id="@+id/txtIdRiesgos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Identificador de Riesgo "
@@ -63,7 +63,7 @@
             android:layout_weight="2"/>
 
         <TextView
-            android:id="@+id/txtNombreCientifico"
+            android:id="@+id/txtNombreCientificos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nombre Común "
@@ -86,7 +86,7 @@
             android:layout_weight="2"/>
 
         <TextView
-            android:id="@+id/txtNombreComun"
+            android:id="@+id/txtNombreComunes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nombre Comun "

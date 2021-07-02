@@ -14,7 +14,7 @@ $json=array();
 						FROM riesgos Ri 
 						INNER JOIN especie_amenazadas esp ON Ri.id = esp.idRiesgo"; */
 
-		$consulta=$conexion->query("SELECT * FROM especie_amenazadas e INNER JOIN riesgos r ON
+		$consulta=$conexion->query("SELECT * FROM especie_amenazadas e  JOIN riesgos r ON
 			e.idRiesgo = r.id");
 		while ($row = $consulta->fetch_array()) {
 			$json['especie_amenazadas'][]=$row;

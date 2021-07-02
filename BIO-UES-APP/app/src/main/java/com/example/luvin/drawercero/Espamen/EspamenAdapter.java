@@ -6,6 +6,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -43,8 +45,8 @@ public class EspamenAdapter extends RecyclerView.Adapter<EspamenAdapter.EspamenH
     }
 
     @Override
-    public EspamenHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View vista= LayoutInflater.from(parent.getContext()).inflate(R.layout.dominios_list,parent,false);
+    public EspamenHolder onCreateViewHolder( @NonNull ViewGroup parent, int viewType) {
+        View vista= LayoutInflater.from(parent.getContext()).inflate(R.layout.espamen_list,parent,false);
         RecyclerView.LayoutParams layoutParams=new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         vista.setLayoutParams(layoutParams);
@@ -52,7 +54,7 @@ public class EspamenAdapter extends RecyclerView.Adapter<EspamenAdapter.EspamenH
     }
 
     @Override
-    public void onBindViewHolder(EspamenHolder holder, int position) {
+    public void onBindViewHolder(@NonNull EspamenHolder holder, int position) {
         holder.txtId.setText(listaEspamen.get(position).getIdEspamen().toString());
         holder.txtIdRiesgo.setText(listaEspamen.get(position).getIdRiesgo().toString());
         holder.txtNombreCientifico.setText(listaEspamen.get(position).getNomEspamen().toString());
@@ -69,12 +71,12 @@ public class EspamenAdapter extends RecyclerView.Adapter<EspamenAdapter.EspamenH
 
         TextView txtNombreComun,txtNombreCientifico,txtId,txtIdRiesgo;
 
-        public EspamenHolder(View itemView) {
+        public EspamenHolder(@NonNull View itemView) {
             super(itemView);
-            txtId=(TextView) itemView.findViewById(R.id.txtId);
-            txtIdRiesgo=(TextView) itemView.findViewById(R.id.txtIdRiesgo);
-            txtNombreCientifico=(TextView)itemView.findViewById(R.id.txtNombreCientifico);
-            txtNombreComun= (TextView) itemView.findViewById(R.id.txtNombreComun);
+            txtId=(TextView) itemView.findViewById(R.id.txtIdEspAmen);
+            txtIdRiesgo=(TextView) itemView.findViewById(R.id.txtIdRiesgos);
+            txtNombreCientifico=(TextView)itemView.findViewById(R.id.txtNombreCientificos);
+            txtNombreComun= (TextView) itemView.findViewById(R.id.txtNombreComunes);
 
         }
     }
