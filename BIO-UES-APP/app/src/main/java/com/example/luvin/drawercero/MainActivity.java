@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import 	androidx.appcompat.widget.Toolbar;
 
 import com.example.luvin.drawercero.Espamen.ConsultarListaEspamen;
+import com.example.luvin.drawercero.Zonas.ConsultarListaZonasFragment;
 import com.example.luvin.drawercero.interfaces.IFragments;
 import com.example.luvin.drawercero.Coleccion.InformacionFragment;
 import com.example.luvin.drawercero.Contactenos.ContactenosFragment;
@@ -147,6 +148,10 @@ public class MainActivity extends AppCompatActivity implements
                     else
                     if (id==R.id.nav_especiesAmenazadas) {
                         fragmentManager.beginTransaction().replace(R.id.contenedor, new ConsultarListaEspamen()).commit();
+                    }
+                    else
+                    if (id==R.id.nav_zonas) {
+                        fragmentManager.beginTransaction().replace(R.id.contenedor, new ConsultarListaZonasFragment()).commit();
                     }
                     else
                         if (id==R.id.nav_contactenos) {

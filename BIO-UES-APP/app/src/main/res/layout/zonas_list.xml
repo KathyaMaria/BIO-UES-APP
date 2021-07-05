@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="500dp"
+            android:layout_height="wrap_content"
+            android:text="Id Zona: "
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/txtIdZona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Identificador de Zona "
+            android:textSize="17sp"
+            android:layout_weight=".8"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="500dp"
+            android:layout_height="wrap_content"
+            android:text="Nombre Zona: "
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/txtNombreZona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nombre de la Zona "
+            android:textSize="17sp"
+            android:layout_weight=".8"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="500dp"
+            android:layout_height="wrap_content"
+            android:text="Descripción: "
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/txtDescripcionZona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descripción de la Zona "
+            android:textSize="17sp"
+            android:layout_weight=".8"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="500dp"
+            android:layout_height="wrap_content"
+            android:text="Lugar Zona: "
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/txtLugarZona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lugar"
+            android:textSize="17sp"
+            android:layout_weight=".8"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="500dp"
+            android:layout_height="wrap_content"
+            android:text="Id Dpto: "
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/txtIdDpto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Departamento "
+            android:textSize="17sp"
+            android:layout_weight=".8"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="500dp"
+            android:layout_height="wrap_content"
+            android:text="Id Municipio: "
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/txtIdMunicipio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Municipio"
+            android:textSize="17sp"
+            android:layout_weight=".8"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="500dp"
+            android:layout_height="wrap_content"
+            android:text="Latitud: "
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/txtLatitudZona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Latitud "
+            android:textSize="17sp"
+            android:layout_weight=".8"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="500dp"
+            android:layout_height="wrap_content"
+            android:text="Longitud: "
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/txtLongitudZona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Longitud "
+            android:textSize="17sp"
+            android:layout_weight=".8"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="500dp"
+            android:layout_height="wrap_content"
+            android:text="Hábitat: "
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/txtHabitatZona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hábitat "
+            android:textSize="17sp"
+            android:layout_weight=".8"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/teal_700"/>
+
+</LinearLayout>

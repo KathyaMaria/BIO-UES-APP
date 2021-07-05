@@ -3,10 +3,9 @@ package com.example.luvin.drawercero.Espamen;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,18 +18,14 @@ import android.widget.Toast;
 
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.luvin.drawercero.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.example.luvin.drawercero.Espamen.Espamen;
-import com.example.luvin.drawercero.VolleySingleton;
 
 import java.util.ArrayList;
 
@@ -101,7 +96,7 @@ public class ConsultarListaEspamen extends Fragment implements Response.Listener
 
         listaEspamen=new ArrayList<>();
 
-        recyclerEspamen= (RecyclerView) vista.findViewById(R.id.idRecyclerListaEspamen);
+        recyclerEspamen= (RecyclerView) vista.findViewById(R.id.idRecyclerListaZonas);
         recyclerEspamen.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerEspamen.setHasFixedSize(true);
 
