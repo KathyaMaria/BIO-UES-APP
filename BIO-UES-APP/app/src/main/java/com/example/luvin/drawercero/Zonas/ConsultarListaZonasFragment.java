@@ -94,7 +94,7 @@ public static ConsultarListaZonasFragment newInstance(String param1, String para
         args.putString(ARG_PARAM6, param6);
         args.putString(ARG_PARAM7,param7);
         args.putString(ARG_PARAM8,param8);
-        args.putString(ARG_PARAM9,param9);
+       // args.putString(ARG_PARAM9,param9);
         fragment.setArguments(args);
         return fragment;
         }
@@ -107,11 +107,11 @@ public void onCreate(Bundle savedInstanceState) {
         mParam2 = getArguments().getString(ARG_PARAM2);
         mParam3 = getArguments().getString(ARG_PARAM3);
         mParam4 = getArguments().getString(ARG_PARAM4);
-        mParam1 = getArguments().getString(ARG_PARAM5);
-        mParam2 = getArguments().getString(ARG_PARAM6);
-        mParam3 = getArguments().getString(ARG_PARAM7);
-        mParam4 = getArguments().getString(ARG_PARAM8);
-        mParam4 = getArguments().getString(ARG_PARAM9);
+        mParam5 = getArguments().getString(ARG_PARAM5);
+        mParam6 = getArguments().getString(ARG_PARAM6);
+        mParam7 = getArguments().getString(ARG_PARAM7);
+        mParam8 = getArguments().getString(ARG_PARAM8);
+     //   mParam9 = getArguments().getString(ARG_PARAM9);
         }
         }
 
@@ -170,12 +170,12 @@ public void onResponse(JSONObject response) {
         JSONObject jsonObject=null;
         jsonObject=json.getJSONObject(i);
 
-        espamen.setIdZona(jsonObject.optInt("id"));
+     //   espamen.setIdZona(jsonObject.optInt("id"));
         espamen.setNombreZona(jsonObject.optString("nombreZona"));
         espamen.setDescripcionZona(jsonObject.optString("descripcionZona1"));
         espamen.setLugarZona(jsonObject.optString("lugarZona"));
-        espamen.setIdDpto(jsonObject.optInt("idDepto"));
-        espamen.setIdMunicipio(jsonObject.optInt("idMunicipio"));
+        espamen.setNombreDepto(jsonObject.optString("nombreDepto"));
+        espamen.setNombreMuniciio(jsonObject.optString("nombreMunicipio"));
         espamen.setLatitudZona(jsonObject.optDouble("latitudZona"));
         espamen.setLongitudZona(jsonObject.optDouble("longitudZona"));
         espamen.setHabitatZona(jsonObject.optString("habitatZona"));

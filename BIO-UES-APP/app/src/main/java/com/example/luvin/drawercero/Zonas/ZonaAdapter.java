@@ -29,12 +29,12 @@ public class ZonaAdapter extends RecyclerView.Adapter<ZonaAdapter.ZonaHolder>{
 
         @Override
         public void onBindViewHolder(@NonNull ZonaHolder holder, int position) {
-            holder.txtIdZona.setText(listaZona.get(position).getIdZona().toString());
+         //   holder.txtIdZona.setText(listaZona.get(position).getIdZona().toString());
             holder.txtNombreZona.setText(listaZona.get(position).getNombreZona().toString());
             holder.txtDescripcionZona.setText(listaZona.get(position).getDescripcionZona().toString());
             holder.txtLugarZona.setText(listaZona.get(position).getLugarZona().toString());
-            holder.txtIdDepto.setText(listaZona.get(position).getIdDpto().toString());
-            holder.txtIdMunicicio.setText(listaZona.get(position).getIdMunicipio().toString());
+            holder.txtIdDepto.setText(listaZona.get(position).getNombreDepto().toString());
+            holder.txtIdMunicicio.setText(listaZona.get(position).getNombreMuniciio().toString());
             holder.txtLatitud.setText(listaZona.get(position).getLatitudZona().toString());
             holder.txtLongitud.setText(listaZona.get(position).getLongitudZona().toString());
             holder.txtHabitat.setText(listaZona.get(position).getHabitatZona().toString());
@@ -53,7 +53,7 @@ public class ZonaAdapter extends RecyclerView.Adapter<ZonaAdapter.ZonaHolder>{
 
             public ZonaHolder(@NonNull View itemView) {
                 super(itemView);
-                txtIdZona=(TextView) itemView.findViewById(R.id.txtIdZona);
+               // txtIdZona=(TextView) itemView.findViewById(R.id.txtIdZona);
                 txtNombreZona=(TextView) itemView.findViewById(R.id.txtNombreZona);
                 txtDescripcionZona=(TextView)itemView.findViewById(R.id.txtDescripcionZona);
                 txtLugarZona= (TextView) itemView.findViewById(R.id.txtLugarZona);

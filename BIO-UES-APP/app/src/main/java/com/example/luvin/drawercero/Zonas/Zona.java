@@ -10,6 +10,8 @@ public class Zona extends ViewModel {
     private String lugarZona;
     private Integer idDpto;
     private Integer idMunicipio;
+    private String nombreMuniciio;
+    private  String nombreDepto;
     private Double latitudZona;
     private Double longitudZona;
     private String habitatZona;
@@ -60,6 +62,22 @@ public class Zona extends ViewModel {
 
     public void setLugarZona(String lugarZona) {
         this.lugarZona = lugarZona;
+    }
+
+    public String getNombreMuniciio() {
+        return nombreMuniciio;
+    }
+
+    public void setNombreMuniciio(String nombreMuniciio) {
+        this.nombreMuniciio = nombreMuniciio;
+    }
+
+    public String getNombreDepto() {
+        return nombreDepto;
+    }
+
+    public void setNombreDepto(String nombreDepto) {
+        this.nombreDepto = nombreDepto;
     }
 
     public Integer getIdDpto() {
