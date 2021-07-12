@@ -55,8 +55,8 @@ public class EspamenAdapter extends RecyclerView.Adapter<EspamenAdapter.EspamenH
 
     @Override
     public void onBindViewHolder(@NonNull EspamenHolder holder, int position) {
-        holder.txtId.setText(listaEspamen.get(position).getIdEspamen().toString());
-        holder.txtIdRiesgo.setText(listaEspamen.get(position).getIdRiesgo().toString());
+        //holder.txtId.setText(listaEspamen.get(position).getIdEspamen().toString());
+        holder.txtIdRiesgo.setText(listaEspamen.get(position).getCatRiesgo().toString());
         holder.txtNombreCientifico.setText(listaEspamen.get(position).getNomEspamen().toString());
         holder.txtNombreComun.setText(listaEspamen.get(position).getNomComEspamen().toString());
 
@@ -73,7 +73,7 @@ public class EspamenAdapter extends RecyclerView.Adapter<EspamenAdapter.EspamenH
 
         public EspamenHolder(@NonNull View itemView) {
             super(itemView);
-            txtId=(TextView) itemView.findViewById(R.id.txtIdEspAmen);
+          //  txtId=(TextView) itemView.findViewById(R.id.txtIdEspAmen);
             txtIdRiesgo=(TextView) itemView.findViewById(R.id.txtIdRiesgos);
             txtNombreCientifico=(TextView)itemView.findViewById(R.id.txtNombreCientificos);
             txtNombreComun= (TextView) itemView.findViewById(R.id.txtNombreComunes);

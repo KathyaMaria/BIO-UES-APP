@@ -73,7 +73,7 @@ public class ConsultarListaEspamen extends Fragment implements Response.Listener
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         args.putString(ARG_PARAM3,param3);
-        args.putString(ARG_PARAM4,param4);
+      //  args.putString(ARG_PARAM4,param4);
         fragment.setArguments(args);
         return fragment;
     }
@@ -85,7 +85,7 @@ public class ConsultarListaEspamen extends Fragment implements Response.Listener
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
             mParam3 = getArguments().getString(ARG_PARAM3);
-            mParam4 = getArguments().getString(ARG_PARAM4);
+          //  mParam4 = getArguments().getString(ARG_PARAM4);
         }
     }
 
@@ -144,8 +144,8 @@ public class ConsultarListaEspamen extends Fragment implements Response.Listener
                 JSONObject jsonObject=null;
                 jsonObject=json.getJSONObject(i);
 
-                espamen.setIdEspamen(jsonObject.optInt("id"));
-                espamen.setIdRiesgo(jsonObject.optInt("idRiesgo"));
+            //    espamen.setIdEspamen(jsonObject.optInt("id"));
+                espamen.setCatRiesgo(jsonObject.optString("catRiesgo"));
                 espamen.setNomEspamen(jsonObject.optString("nomEspamen"));
                 espamen.setNomComEspamen(jsonObject.optString("nomComEspamen"));
                 listaEspamen.add(espamen);

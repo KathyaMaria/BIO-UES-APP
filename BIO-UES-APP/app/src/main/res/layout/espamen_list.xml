@@ -11,30 +11,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Id: "
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:layout_weight="2"/>
-
-        <TextView
-            android:id="@+id/txtIdEspAmen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Identificador "
-            android:textSize="17sp"
-            android:layout_weight=".8"/>
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Id Riesgo: "
+            android:text="Riesgo: "
             android:textSize="17sp"
             android:textStyle="bold"
             android:layout_weight="2"/>
@@ -43,7 +20,7 @@
             android:id="@+id/txtIdRiesgos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Identificador de Riesgo "
+            android:text="Riesgo "
             android:textSize="17sp"
             android:layout_weight=".8"/>
 

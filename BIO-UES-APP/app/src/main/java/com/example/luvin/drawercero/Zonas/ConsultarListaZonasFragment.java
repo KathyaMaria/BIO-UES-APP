@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 
@@ -33,7 +34,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ConsultarListaZonasFragment  extends Fragment implements Response.Listener<JSONObject>,Response.ErrorListener{
+public class ConsultarListaZonasFragment  extends Fragment implements Response.Listener<JSONObject>,Response.ErrorListener ,
+        SearchView.OnQueryTextListener
+{
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private static final String ARG_PARAM1 = "param1";
@@ -45,7 +48,7 @@ private static final String ARG_PARAM6 = "param6";
 private static final String ARG_PARAM7 = "param7";
 private static final String ARG_PARAM8 = "param8";
 private static final String ARG_PARAM9 = "param9";
-
+ZonaAdapter adapter;
 
 // TODO: Rename and change types of parameters
 private String mParam1;
@@ -60,6 +63,7 @@ private String mParam9;
 
 private OnFragmentInteractionListener mListener;
 
+        SearchView txtBuscarZona;
         RecyclerView recyclerZona;
         ArrayList<Zona> listaZona;
 
@@ -118,10 +122,11 @@ public void onCreate(Bundle savedInstanceState) {
 @Override
 public View onCreateView(LayoutInflater inflater, ViewGroup container,
         Bundle savedInstanceState) {
-        View vista=inflater.inflate(R.layout.fragment_consultar_lista_espamen, container, false);
+        View vista=inflater.inflate(R.layout.fragment_consultar_lista_zonas, container, false);
 
         listaZona=new ArrayList<>();
-
+        adapter = new ZonaAdapter(listaZona);
+        txtBuscarZona=(SearchView) vista.findViewById(R.id.textBuscarZona);
         recyclerZona= (RecyclerView) vista.findViewById(R.id.idRecyclerListaZonas);
         recyclerZona.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerZona.setHasFixedSize(true);
@@ -129,7 +134,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
         // request= Volley.newRequestQueue(getContext());
 
         cargarWebService();
-
+        txtBuscarZona.setOnQueryTextListener(this);
         return vista;
 
         }
@@ -218,7 +223,18 @@ public void onDetach() {
         mListener = null;
         }
 
-/**
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+                return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String newText) {
+        adapter.filtrado(newText);
+                return false;
+        }
+
+        /**
  * This interface must be implemented by activities that contain this
  * fragment to allow an interaction in this fragment to be communicated
  * to the activity and potentially other fragments contained in that

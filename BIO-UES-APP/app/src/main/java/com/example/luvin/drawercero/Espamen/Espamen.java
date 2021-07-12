@@ -6,6 +6,7 @@ public class Espamen {
     private Integer idRiesgo;
     private  String nombreEspamen;
     private String nombreComEspamen;
+    private String catRiesgo;
 
     public Espamen(Integer idEspamen, Integer idRiesgo, String nombreEspamen, String nombreComEspamen) {
         this.idEspamen = idEspamen;
@@ -28,6 +29,14 @@ public class Espamen {
 
     public void setIdRiesgo(Integer idRiesgo) {
         this.idRiesgo = idRiesgo;
+    }
+
+    public String getCatRiesgo() {
+        return catRiesgo;
+    }
+
+    public void setCatRiesgo(String catRiesgo) {
+        this.catRiesgo = catRiesgo;
     }
 
     public String getNomEspamen() {

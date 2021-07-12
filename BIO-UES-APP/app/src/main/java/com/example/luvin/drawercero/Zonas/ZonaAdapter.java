@@ -1,5 +1,6 @@
 package com.example.luvin.drawercero.Zonas;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,15 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.luvin.drawercero.R;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ZonaAdapter extends RecyclerView.Adapter<ZonaAdapter.ZonaHolder>{
 
-        List<Zona> listaZona;
+       ArrayList<Zona> listaZona;
+       ArrayList<Zona> listaOriginal;
 
-    public ZonaAdapter(List<Zona> listaZona) {
+    public ZonaAdapter(ArrayList<Zona> listaZona) {
             this.listaZona = listaZona;
-        }
+            listaOriginal = new ArrayList<>();
+            listaOriginal.addAll(listaZona);
+    }
 
         @Override
         public ZonaAdapter.ZonaHolder onCreateViewHolder( @NonNull ViewGroup parent, int viewType) {
@@ -39,6 +45,25 @@ public class ZonaAdapter extends RecyclerView.Adapter<ZonaAdapter.ZonaHolder>{
             holder.txtLongitud.setText(listaZona.get(position).getLongitudZona().toString());
             holder.txtHabitat.setText(listaZona.get(position).getHabitatZona().toString());
 
+        }
+
+        public void filtrado(String txtBuscar){
+        int longitud = txtBuscar.length();
+        if (longitud==0){
+            listaZona.clear();
+            listaZona.addAll(listaOriginal);
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                List<Zona> coleccion = listaZona.stream().filter(i -> i.getNombreZona().toLowerCase()
+                        .contains(txtBuscar.toLowerCase())).collect(Collectors.toList());
+            }else{
+                for (Zona z:listaOriginal){
+                    if (z.getNombreZona().toLowerCase().contains(txtBuscar.toLowerCase())){
+                        listaZona.add(z);
+                    }
+                }
+            }
+        }
         }
 
         @Override
