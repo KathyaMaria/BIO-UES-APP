@@ -56,6 +56,8 @@ public class ZonaAdapter extends RecyclerView.Adapter<ZonaAdapter.ZonaHolder>{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 List<Zona> coleccion = listaZona.stream().filter(i -> i.getNombreZona().toLowerCase()
                         .contains(txtBuscar.toLowerCase())).collect(Collectors.toList());
+                listaZona.clear();
+                listaZona.addAll(coleccion);
             }else{
                 for (Zona z:listaOriginal){
                     if (z.getNombreZona().toLowerCase().contains(txtBuscar.toLowerCase())){
@@ -63,7 +65,7 @@ public class ZonaAdapter extends RecyclerView.Adapter<ZonaAdapter.ZonaHolder>{
                     }
                 }
             }
-        }
+        }notifyDataSetChanged();
         }
 
         @Override

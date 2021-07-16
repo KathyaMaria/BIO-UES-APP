@@ -134,7 +134,9 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
         // request= Volley.newRequestQueue(getContext());
 
         cargarWebService();
+        //txtBuscarZona.setOnQueryTextListener(this);
         txtBuscarZona.setOnQueryTextListener(this);
+
         return vista;
 
         }

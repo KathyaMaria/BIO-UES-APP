@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import 	androidx.appcompat.widget.Toolbar;
 
 import com.example.luvin.drawercero.Espamen.ConsultarListaEspamen;
+import com.example.luvin.drawercero.Especies.ConsultarListaEspecies;
 import com.example.luvin.drawercero.Zonas.ConsultarListaZonasFragment;
 import com.example.luvin.drawercero.interfaces.IFragments;
 import com.example.luvin.drawercero.Coleccion.InformacionFragment;
@@ -134,11 +135,7 @@ public class MainActivity extends AppCompatActivity implements
                 fragmentManager.beginTransaction().replace(R.id.contenedor, new DominioConsultarFragment()).commit();
             }
             else */
-                if (id==R.id.nav_investigaciones) {
-                    fragmentManager.beginTransaction().replace(R.id.contenedor, new InvestigacionesConsultarFragment()).commit();
-                }
-                else
-                    if (id==R.id.nav_especimenes) {
+                if (id==R.id.nav_especimenes) {
                         fragmentManager.beginTransaction().replace(R.id.contenedor, new EspecimenesConsultarFragment()).commit();
                     }
                     else
@@ -152,6 +149,10 @@ public class MainActivity extends AppCompatActivity implements
                     else
                     if (id==R.id.nav_zonas) {
                         fragmentManager.beginTransaction().replace(R.id.contenedor, new ConsultarListaZonasFragment()).commit();
+                    }
+                    else
+                    if (id==R.id.nav_especies) {
+                        fragmentManager.beginTransaction().replace(R.id.contenedor, new ConsultarListaEspecies()).commit();
                     }
                     else
                         if (id==R.id.nav_contactenos) {

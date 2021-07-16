@@ -12,9 +12,7 @@
         <item
             android:id="@+id/nav_colecciones_consultar"
             android:title="Colecciones"/>
-        <item
-            android:id="@+id/nav_investigaciones"
-            android:title="Investigaciones"/>
+
         <item
             android:id="@+id/nav_especimenes"
             android:title="Especimenes"/>
@@ -27,7 +25,9 @@
         <item
             android:id="@+id/nav_zonas"
             android:title="Zonas"/>
-
+        <item
+            android:id="@+id/nav_especies"
+            android:title="Taxonomia"/>
         <item
             android:id="@+id/nav_contactenos"
             android:title="Contactenos"/>
