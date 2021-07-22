@@ -68,7 +68,6 @@
                 android:layout_marginRight="15dp"
                 android:text="Iniciar Sesión"
                 android:background="#009688"
-
                 android:textColor="#FFF"
                 android:textSize="18sp"
                 app:backgroundTint="#009688" />
@@ -86,15 +85,25 @@
                 android:textSize="18sp"
                 app:backgroundTint="#68070707" />
 
-            <TextView android:id="@+id/signup"
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp" />
+
+            <TextView
+                android:id="@+id/signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="24dp"
+                android:gravity="center"
                 android:text="¿Eres nuevo aqui? Registrate"
                 android:textColor="#0000FF"
-                android:layout_marginTop="30dp"
-                android:gravity="center"
-                android:textSize="16dip"/>
+                android:textSize="16dip" />
 
         </LinearLayout>
     </FrameLayout>

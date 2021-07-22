@@ -48,19 +48,20 @@ public class ZonaAdapter extends RecyclerView.Adapter<ZonaAdapter.ZonaHolder>{
         }
 
         public void filtrado(String txtBuscar){
-        int longitud = txtBuscar.length();
-        if (longitud==0){
+       //int longitud = txtBuscar.length();
+        if (txtBuscar.length()==0){
             listaZona.clear();
             listaZona.addAll(listaOriginal);
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 List<Zona> coleccion = listaZona.stream().filter(i -> i.getNombreZona().toLowerCase()
-                        .contains(txtBuscar.toLowerCase())).collect(Collectors.toList());
+                        .contains(txtBuscar)).collect(Collectors.toList());
                 listaZona.clear();
                 listaZona.addAll(coleccion);
             }else{
+                listaZona.clear();
                 for (Zona z:listaOriginal){
-                    if (z.getNombreZona().toLowerCase().contains(txtBuscar.toLowerCase())){
+                    if (z.getNombreZona().toLowerCase().contains(txtBuscar)){
                         listaZona.add(z);
                     }
                 }

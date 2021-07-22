@@ -6,17 +6,9 @@ import androidx.lifecycle.ViewModelProvider;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -28,22 +20,22 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.luvin.drawercero.InicioFragment;
+import com.example.luvin.drawercero.Inicio.InicioFragment;
 import com.example.luvin.drawercero.MainActivity;
 import com.example.luvin.drawercero.R;
-import com.google.android.material.textfield.TextInputEditText;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.facebook.FacebookSdk;
 
 public class LoginFragment extends AppCompatActivity {
     private Button acceder;
@@ -53,6 +45,9 @@ public class LoginFragment extends AppCompatActivity {
     private ProgressDialog progreso;
     private RequestQueue requestQueue;
     StringRequest stringRequest;
+    LoginButton loginButton;
+    private CallbackManager callbackManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +62,32 @@ public class LoginFragment extends AppCompatActivity {
         ProgressBar progressBar;
         progressBar=findViewById(R.id.progress);
 
+
+        callbackManager = CallbackManager.Factory.create();
+
+        loginButton = (LoginButton)findViewById(R.id.login_button);
+        loginButton.setReadPermissions("email");
+
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+                IraMain();
+
+            }
+
+            @Override
+            public void onCancel() {
+
+                Toast.makeText(getApplicationContext(),"se cancelo el inicio de sesion", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
 
 
         registrar.setOnClickListener(new View.OnClickListener() {
@@ -136,7 +157,19 @@ public class LoginFragment extends AppCompatActivity {
         }); */
     }
 
+    private void IraMain() {
 
+        Intent intent = new Intent(LoginFragment.this, MainActivity.class);
+        finish();
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
    /* private void iniciar() {
 
         if (!validar()) return;

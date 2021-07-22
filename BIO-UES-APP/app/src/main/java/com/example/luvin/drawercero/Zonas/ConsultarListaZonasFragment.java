@@ -117,6 +117,7 @@ public void onCreate(Bundle savedInstanceState) {
         mParam8 = getArguments().getString(ARG_PARAM8);
      //   mParam9 = getArguments().getString(ARG_PARAM9);
         }
+
         }
 
 @Override
@@ -135,6 +136,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 
         cargarWebService();
         //txtBuscarZona.setOnQueryTextListener(this);
+
         txtBuscarZona.setOnQueryTextListener(this);
 
         return vista;
