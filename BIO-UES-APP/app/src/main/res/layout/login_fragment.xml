@@ -85,7 +85,6 @@
                 android:textSize="18sp"
                 app:backgroundTint="#68070707" />
 
-
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/login_button"
                 android:layout_width="wrap_content"
@@ -94,11 +93,16 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="30dp" />
 
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/sign_in_button"
+                android:layout_width="190dp"
+                android:layout_height="35dp" />
+
             <TextView
                 android:id="@+id/signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="24dp"
                 android:gravity="center"
                 android:text="¿Eres nuevo aqui? Registrate"

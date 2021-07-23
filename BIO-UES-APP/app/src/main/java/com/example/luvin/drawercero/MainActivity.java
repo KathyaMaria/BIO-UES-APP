@@ -1,5 +1,6 @@
 package com.example.luvin.drawercero;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -8,12 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import 	androidx.appcompat.widget.Toolbar;
 
 import com.example.luvin.drawercero.Espamen.ConsultarListaEspamen;
 import com.example.luvin.drawercero.Especies.ConsultarListaEspecies;
+import com.example.luvin.drawercero.Login.LoginFragment;
 import com.example.luvin.drawercero.Zonas.ConsultarListaZonasFragment;
 import com.example.luvin.drawercero.interfaces.IFragments;
 import com.example.luvin.drawercero.Coleccion.InformacionFragment;
@@ -22,6 +25,11 @@ import com.example.luvin.drawercero.Dominios.ConsultarListaDominiosFragment;
 import com.example.luvin.drawercero.Especimenes.EspecimenesConsultarFragment;
 import com.example.luvin.drawercero.Investigaciones.InvestigacionesConsultarFragment;
 import com.example.luvin.drawercero.Login.User;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -39,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements
     Spinner tipoColeccion;
     private int ident;
     private User user;
+    GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +57,12 @@ public class MainActivity extends AppCompatActivity implements
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         View header = ((NavigationView)findViewById(R.id.nav_view)).getHeaderView(0);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         try{
             Bundle bundle = getIntent().getExtras();
@@ -108,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements
 
         int id=item.getItemId();
         if (id==R.id.opciones) {
+            signOut();
             return true;
         }
 
@@ -171,5 +187,26 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+    private void signOut() {
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // ...
+                      //  finish();
+
+                       // Intent in = new Intent(MainActivity.this, LoginFragment.class);
+
+                        //after pressing back button it wouldn't take to previous task and instead close the app
+                        //in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                       // startActivity(in);
+
+                        Toast.makeText(MainActivity.this, "Signed Out successfully", Toast.LENGTH_LONG).show();
+                        finish();
+                        Intent intent =  new Intent(MainActivity.this, LoginFragment.class);
+                    }
+                });
     }
 }
