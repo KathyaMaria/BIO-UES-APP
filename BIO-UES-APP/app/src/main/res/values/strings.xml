@@ -18,6 +18,8 @@
     <string name="ip">"http://192.168.1.18/BIO-UES-APP/ConsultarDominio.php</string>
     <string name="facebook_app_id">512184999893212</string>
     <string name="fb_login_protocol_scheme">fb512184999893212</string>
+    <string name="action_search">Search</string>
+    <string name="search_hint">Ingrese el nombre de la zona</string>
 
 
 </resources>

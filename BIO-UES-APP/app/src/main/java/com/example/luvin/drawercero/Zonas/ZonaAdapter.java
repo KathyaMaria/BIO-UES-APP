@@ -4,25 +4,30 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.luvin.drawercero.R;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ZonaAdapter extends RecyclerView.Adapter<ZonaAdapter.ZonaHolder>{
+public class ZonaAdapter extends RecyclerView.Adapter<ZonaAdapter.ZonaHolder> implements Filterable {
 
-       ArrayList<Zona> listaZona;
-       ArrayList<Zona> listaOriginal;
+        private LayoutInflater mInflater;
+        List<Zona> listaZona = null ;
+        ArrayList<Zona> listaAll; // usada para la busqueda
 
-    public ZonaAdapter(ArrayList<Zona> listaZona) {
+
+    public ZonaAdapter(List<Zona> listaZona) {
             this.listaZona = listaZona;
-            listaOriginal = new ArrayList<>();
-            listaOriginal.addAll(listaZona);
+            this.listaAll = new ArrayList<>();
     }
+
 
         @Override
         public ZonaAdapter.ZonaHolder onCreateViewHolder( @NonNull ViewGroup parent, int viewType) {
@@ -32,6 +37,7 @@ public class ZonaAdapter extends RecyclerView.Adapter<ZonaAdapter.ZonaHolder>{
             vista.setLayoutParams(layoutParams);
             return new ZonaAdapter.ZonaHolder(vista);
         }
+
 
         @Override
         public void onBindViewHolder(@NonNull ZonaHolder holder, int position) {
@@ -47,7 +53,7 @@ public class ZonaAdapter extends RecyclerView.Adapter<ZonaAdapter.ZonaHolder>{
 
         }
 
-        public void filtrado(String txtBuscar){
+      /*  public void filtrado(String txtBuscar){
        //int longitud = txtBuscar.length();
         if (txtBuscar.length()==0){
             listaZona.clear();
@@ -67,14 +73,47 @@ public class ZonaAdapter extends RecyclerView.Adapter<ZonaAdapter.ZonaHolder>{
                 }
             }
         }notifyDataSetChanged();
-        }
+        } */
 
         @Override
         public int getItemCount() {
             return listaZona.size();
         }
 
-        public class ZonaHolder extends RecyclerView.ViewHolder{
+    @Override
+    public Filter getFilter() {
+        return exampleFilter;
+    }
+
+    private Filter exampleFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Zona> filteredList = new ArrayList<>();
+            if (constraint.toString().isEmpty()){
+                filteredList.addAll(listaAll);
+            }else {
+                for (Zona item : listaAll){
+                    if (item.getNombreZona().toLowerCase().contains(constraint.toString().toLowerCase())){
+                        filteredList.add(item);
+                    }
+                }
+            }
+
+            FilterResults filterResults = new FilterResults();
+            filterResults.values=filteredList;
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+           // listaZona.clear();
+            listaAll.addAll((Collection<?extends Zona>)results.values);
+            notifyDataSetChanged();
+        }
+    };
+
+
+    public class ZonaHolder extends RecyclerView.ViewHolder{
 
             TextView txtIdZona,txtNombreZona,txtDescripcionZona, txtLugarZona,txtIdDepto,txtIdMunicicio,
                     txtLatitud,txtLongitud,txtHabitat;

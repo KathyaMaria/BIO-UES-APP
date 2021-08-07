@@ -14,8 +14,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -41,8 +39,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.luvin.drawercero.Especimenes.Especimen;
 import com.example.luvin.drawercero.Especimenes.EspecimenesInsertarFragment;
-import com.example.luvin.drawercero.Especimenes.EspecimenesViewModel;
 import com.example.luvin.drawercero.Investigaciones.InvestigacionViewModel;
 import com.example.luvin.drawercero.R;
 import com.google.android.material.textfield.TextInputLayout;
@@ -55,7 +53,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -66,11 +63,9 @@ import static android.app.Activity.RESULT_OK;
  * A simple {@link Fragment} subclass.
  */
 public class Fragment_Tab_Colecciones_Moluscos extends Fragment  implements Response.Listener<JSONObject>, Response.ErrorListener {
-        private EspecimenesViewModel especimenesViewModel;
+        private Especimen especimenesViewModel;
         RequestQueue rq;
         JsonRequest jrq;
-
-
 
         final int COD_SELECCIONA=10;
         final int COD_FOTO=20;
@@ -79,7 +74,8 @@ public class Fragment_Tab_Colecciones_Moluscos extends Fragment  implements Resp
         private static final int REQUEST_PERMISSION_CAMERA=101;
 
         Button btnGuardar, btnCancelar;
-        ImageButton btnCamara, btnGaleria;
+        Button btnCamara;
+        ImageButton btnGaleria;
         ImageView imageView;
         public static final int MY_DEFAULT_TIMEOUT = 50000;
 
@@ -138,7 +134,7 @@ public class Fragment_Tab_Colecciones_Moluscos extends Fragment  implements Resp
             tamaño=(EditText)view.findViewById(R.id.editTextTamaño);
             habitat=(EditText)view.findViewById(R.id.editTextHabitat);
             imageView = (ImageView)view.findViewById(R.id.imageView);
-            btnCamara=(ImageButton) view.findViewById(R.id.tomarFoto);
+            btnCamara=(Button) view.findViewById(R.id.tomarFotoButton);
             btnGuardar = (Button) view.findViewById(R.id.buttonIngresarEspecimenes);
             rq = Volley.newRequestQueue(getContext());
 
@@ -559,7 +555,7 @@ public class Fragment_Tab_Colecciones_Moluscos extends Fragment  implements Resp
         @Override
         public void onActivityCreated ( @Nullable Bundle savedInstanceState){
             super.onActivityCreated(savedInstanceState);
-            especimenesViewModel = new ViewModelProvider(this).get(EspecimenesViewModel.class);
+            especimenesViewModel = new ViewModelProvider(this).get(Especimen.class);
             // TODO: Use the ViewModel
 
 

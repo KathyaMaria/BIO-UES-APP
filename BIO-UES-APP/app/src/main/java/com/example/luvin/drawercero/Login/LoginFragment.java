@@ -1,7 +1,6 @@
 package com.example.luvin.drawercero.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -24,10 +23,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.luvin.drawercero.Inicio.InicioFragment;
 import com.example.luvin.drawercero.MainActivity;
 import com.example.luvin.drawercero.R;
-import com.example.luvin.drawercero.pruebaGoogleLogin;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -44,8 +41,6 @@ import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import com.facebook.FacebookSdk;
 
 public class LoginFragment extends AppCompatActivity {
     private Button acceder;

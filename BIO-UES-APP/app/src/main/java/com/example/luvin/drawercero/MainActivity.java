@@ -5,8 +5,10 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,8 +18,11 @@ import 	androidx.appcompat.widget.Toolbar;
 
 import com.example.luvin.drawercero.Espamen.ConsultarListaEspamen;
 import com.example.luvin.drawercero.Especies.ConsultarListaEspecies;
+import com.example.luvin.drawercero.Especimen.EspecimenFragment;
 import com.example.luvin.drawercero.Login.LoginFragment;
 import com.example.luvin.drawercero.Zonas.ConsultarListaZonasFragment;
+import com.example.luvin.drawercero.Zonas.Zona;
+import com.example.luvin.drawercero.Zonas.ZonaAdapter;
 import com.example.luvin.drawercero.interfaces.IFragments;
 import com.example.luvin.drawercero.Coleccion.InformacionFragment;
 import com.example.luvin.drawercero.Contactenos.ContactenosFragment;
@@ -41,6 +46,8 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,IFragments {
 
@@ -48,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements
     private int ident;
     private User user;
     GoogleSignInClient mGoogleSignInClient;
+    private List<Zona> listaZona;
+    private ZonaAdapter adapter = new ZonaAdapter(listaZona);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +95,8 @@ public class MainActivity extends AppCompatActivity implements
         });
 
         DrawerLayout drawer=(DrawerLayout)findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this, drawer, toolbar,R.string.navegador_abrir_drawer,R.string.navegador_cerrar_drawer);
+        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this, drawer,
+                toolbar,R.string.navegador_abrir_drawer,R.string.navegador_cerrar_drawer);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -112,9 +122,23 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_opciones,menu);
+        // getMenuInflater().inflate(R.menu.menu_opciones,menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView)searchItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
-        getMenuInflater().inflate(R.menu.menu_opciones,menu);
-
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
         return true;
     }
 

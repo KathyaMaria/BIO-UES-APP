@@ -67,7 +67,7 @@ import static android.app.Activity.RESULT_OK;
  * A simple {@link Fragment} subclass.
  */
 public class EspecimenesInsertarFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener {
-    private EspecimenesViewModel especimenesViewModel;
+    private Especimen especimenesViewModel;
     RequestQueue rq;
     JsonRequest jrq;
 
@@ -136,7 +136,7 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
         tamaño=(EditText)view.findViewById(R.id.editTextTamaño);
         habitat=(EditText)view.findViewById(R.id.editTextHabitat);
         imageView = (ImageView)view.findViewById(R.id.imageView);
-        btnCamara=(ImageButton) view.findViewById(R.id.tomarFoto);
+        btnCamara=(ImageButton) view.findViewById(R.id.tomarFotoButton);
         btnGuardar = (Button) view.findViewById(R.id.buttonIngresarEspecimenes);
         rq = Volley.newRequestQueue(getContext());
 
@@ -553,7 +553,7 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
     @Override
     public void onActivityCreated ( @Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-        especimenesViewModel = new ViewModelProvider(this).get(EspecimenesViewModel.class);
+        especimenesViewModel = new ViewModelProvider(this).get(Especimen.class);
         // TODO: Use the ViewModel
 
 

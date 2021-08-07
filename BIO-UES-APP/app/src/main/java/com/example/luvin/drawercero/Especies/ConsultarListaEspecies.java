@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -29,7 +30,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ConsultarListaEspecies extends Fragment implements Response.Listener<JSONObject>,Response.ErrorListener{
+public class ConsultarListaEspecies extends Fragment implements Response.Listener<JSONObject>,Response.ErrorListener, SearchView .OnQueryTextListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -212,6 +213,16 @@ public class ConsultarListaEspecies extends Fragment implements Response.Listene
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 
     /**
