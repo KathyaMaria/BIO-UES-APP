@@ -1,13 +1,24 @@
 package com.example.luvin.drawercero.Especimenes;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +34,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.AuthFailureError;
@@ -44,7 +57,9 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,18 +70,38 @@ import java.util.Map;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.app.Activity.RESULT_OK;
 
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.content.ContentValues.TAG;
+import static android.database.Cursor.*;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EspecimenesConsultarFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener {
+public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment implements Response.Listener<JSONObject>,
+        Response.ErrorListener , View.OnClickListener{
+
     private Especimen especimenesViewModel;
     RequestQueue rq;
     JsonRequest jrq;
 
-    final int COD_SELECCIONA=10;
-    final int COD_FOTO=20;
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
+    private String mParam1;
+    private String mParam2;
+    private OnFragmentInteractionListener mListener; //llamado de la interfaz
+
+    private static final String CARPETA_PRINCIPAL = "misImagenesApp/";//directorio principal
+    private static final String CARPETA_IMAGEN = "imagenes";//carpeta donde se guardan las fotos
+    private static final String DIRECTORIO_IMAGEN = CARPETA_PRINCIPAL + CARPETA_IMAGEN;//ruta carpeta de directorios
+    private String path;//almacena la ruta de la imagen
+    File fileImagen;
+    Bitmap bitmap;
+
+    private final int MIS_PERMISOS = 100;
+    private static final int COD_SELECCIONA = 10;
+    private static final int COD_FOTO = 20;
     private static final int REQUEST_IMAGE_CAMERA=101;
     private static final int REQUEST_PERMISSION_CAMERA=101;
 
@@ -94,9 +129,15 @@ public class EspecimenesConsultarFragment extends Fragment implements Response.L
     EditText peso;
     EditText tamaño;
     EditText habitat;
-    String path;
+    private String mCurrentPhotoPath;
+    private ContentValues values;
+    private Uri imageUri;
+    private Bitmap thumbnail;
+    String imageurl;
+    private static final String TAG = "EspecimenesRegistrarDatoPreliminarFragment";
+    private static final int PICTURE_RESULT = 122 ;
 
-    public EspecimenesConsultarFragment() {
+    public EspecimenesRegistrarDatoPreliminarFragment() {
         // Required empty public constructor
     }
 
@@ -118,8 +159,6 @@ public class EspecimenesConsultarFragment extends Fragment implements Response.L
 
         listaRecolector = (TextInputLayout) view.findViewById(R.id.TextInputLayoutColector);
         recolector = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTextViewColector);
-        listaReino = (TextInputLayout) view.findViewById(R.id.TextInputLayoutReino);
-        reino = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTextViewReino);
         latitud=(EditText)view.findViewById(R.id.editTextCoordenadaLatitud);
         longitud=(EditText)view.findViewById(R.id.editTextCoordenadaLongitud);
         cantidadEspecimenes=(EditText)view.findViewById(R.id.editCantidadEspecimenesFragmentEspecimen);
@@ -128,39 +167,57 @@ public class EspecimenesConsultarFragment extends Fragment implements Response.L
         peso=(EditText)view.findViewById(R.id.editTextPeso);
         tamaño=(EditText)view.findViewById(R.id.editTextTamaño);
         habitat=(EditText)view.findViewById(R.id.editTextHabitat);
-        imageView = (ImageView)view.findViewById(R.id.imageView);
         btnCamara=(ImageButton) view.findViewById(R.id.tomarFotoButton);
+        imageView = (ImageView)view.findViewById(R.id.imageView);
         btnGuardar = (Button) view.findViewById(R.id.buttonIngresarEspecimenes);
         rq = Volley.newRequestQueue(getContext());
 
 
-      /*  if(validaPermisos()){
-            btnCamara.setEnabled(true);
-        }else{
-            btnCamara.setEnabled(false);
-        } */
-
-        if (ContextCompat.checkSelfPermission(getContext(), WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
+      /*  if (ContextCompat.checkSelfPermission(getContext(), WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.CAMERA}, 1000);
         }
 
+*/
+
+        /*btnGuardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cargarWebService();
+            }
+        }); */
+
+   /*     btnCamara.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirCamara();
+
+            }
+
+        });  //this works fine*/
+
+      //  imageView.setOnClickListener((View.OnClickListener) this);
         btnCamara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
-                //  if(ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)==
-                //        PackageManager.PERMISSION_GRANTED){
-                //  abrirCamara();
-                abrirCamara();
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    //Check permissions for Android 6.0+
+                    if(!checkExternalStoragePermission()){
+                        return;
+                    }
+                }
+
+                values = new ContentValues();
+                values.put(MediaStore.Images.Media.TITLE, "MyPicture");
+                values.put(MediaStore.Images.Media.DESCRIPTION, "Photo taken on " + System.currentTimeMillis());
+                imageUri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(intent, PICTURE_RESULT);
             }
-            //  }else{
-            //   ActivityCompat.requestPermissions(getActivity(),new String[]{ Manifest.permission.CAMERA},
-            //           REQUEST_PERMISSION_CAMERA);
-            //  }
-            // }else abrirCamara();
-            // }
         });
 
         btnGuardar.setOnClickListener(new View.OnClickListener() {
@@ -207,82 +264,122 @@ public class EspecimenesConsultarFragment extends Fragment implements Response.L
         return view;
 
     }
-    String mCurrentPhotoPath;
-    private File createImageFile() throws IOException{
-
-        String timeStamp = new SimpleDateFormat("yyyyMddd_HHmss").format(new Date());
-        String imageFileName="Backup_"+timeStamp+"_";
-        File storageDir=getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image=File.createTempFile(imageFileName,".jpg",storageDir);
-        mCurrentPhotoPath=image.getAbsolutePath();
-        return image;
-    }
-
-    static final int REQUEST_TAKE_PHOTO=1;
-
-   /*  public void tomarFoto(View view){
-        Intent takePictureInent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if(takePictureInent.resolveActivity(getActivity().getPackageManager())!= null){
-            File photoFile=null;
-            try {
-                photoFile=createImageFile();
-            }catch (IOException ex){
-
-            }
-            if(photoFile!=null){
-                Uri photoUri=FileProvider.getUriForFile(getActivity(),"com.example.luvin.drawercero",photoFile);
-                takePictureInent.putExtra(MediaStore.EXTRA_OUTPUT,photoUri);
-                getActivity().startActivityForResult(takePictureInent,REQUEST_TAKE_PHOTO);
-            }
-        }
-    } */
-
-     /* private boolean validaPermisos() {
-
-        if(Build.VERSION.SDK_INT<Build.VERSION_CODES.M){
+    private boolean checkExternalStoragePermission() {
+        int permissionCheck = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            Log.i(TAG, "Permission not granted.");
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 225);
+        } else {
+            Log.i(TAG, "You already have permission!");
             return true;
         }
 
-        if (getContext().checkSelfPermission(CAMERA) == PackageManager.PERMISSION_GRANTED)
-            if (getContext().checkSelfPermission(WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                return true;
-            }
-
-        if((shouldShowRequestPermissionRationale(CAMERA)) ||
-                (shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE))){
-            cargarDialogoRecomendacion();
-        }else{
-            requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
-        }
-
         return false;
-    } */
+    }
 
-    private void abrirCamara(){
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if(intent.resolveActivity(getActivity().getPackageManager()) != null){
-            getActivity().startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-        }
+    public String getRealPathFromURI(Uri contentUri) {
+        String[] proj = { MediaStore.Images.Media.DATA };
+        Cursor cursor = getContext().getContentResolver().query(contentUri, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
     }
 
     static final int REQUEST_IMAGE_CAPTURE=1;
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode==REQUEST_IMAGE_CAPTURE){
-            if(resultCode== RESULT_OK){
 
-                Bitmap bitmap=(Bitmap)data.getExtras().get("data");
-                imageView.setImageBitmap(bitmap);
-                Log.i("TAG","Result=>"+bitmap);
+   /*private void abrirCamara(){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if(intent.resolveActivity(getActivity().getPackageManager()) != null){
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.Images.Media.TITLE, "MyPicture");
+                values.put(MediaStore.Images.Media.DESCRIPTION, "Photo taken on " + System.currentTimeMillis());
+                photoURI = getContext().getContentResolver().insert(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+                //Uri photoURI = FileProvider.getUriForFile(AddActivity.this, "com.example.android.fileprovider", photoFile);
+
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
             }
         }
-        super.onActivityResult(requestCode, resultCode, data);
+    }*/
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir =getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
     }
+    private void abrirCamara(){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if(intent.resolveActivity(getActivity().getPackageManager()) != null){
+            //Valida que se pueda usar el recurso de la camara
+            getActivity().startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+        }
+    } // este es el que tenia antes ya funcionando
+
+
+    /*public ContentResolver getContentResolver() {
+        return null;
+    }*/
+
+    private Uri photoURI;
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+       /*super.onActivityResult(requestCode,resultCode,data);
+        if(requestCode==REQUEST_IMAGE_CAPTURE && resultCode== RESULT_OK){
+            Bitmap bitmap;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), photoURI);
+                imageView.setImageBitmap(bitmap);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } */
+        switch (requestCode) {
+            case PICTURE_RESULT:
+                if (requestCode == PICTURE_RESULT)
+                    if (resultCode == Activity.RESULT_OK) {
+                        try {
+                            thumbnail = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imageUri);
+                            imageView.setImageBitmap(thumbnail);
+                            imageurl = getRealPathFromURI(imageUri);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+        }
+    }
+
 
     public void onErrorResponse(VolleyError error) {
         Toast.makeText(getContext(), "No Se pudó registrar el especimen " + error.toString() + nombreComun.getText().toString(),
                 Toast.LENGTH_LONG).show();
     }
+
+
 
     @Override
     public void onResponse(JSONObject response) {
@@ -290,147 +387,6 @@ public class EspecimenesConsultarFragment extends Fragment implements Response.L
                 Toast.LENGTH_SHORT).show();
         limpiarCajas();
     }
-
-    /*
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if(requestCode==100){
-            if(grantResults.length==2 && grantResults[0]==PackageManager.PERMISSION_GRANTED
-                    && grantResults[1]==PackageManager.PERMISSION_GRANTED){
-                btnCamara.setEnabled(true);
-            }else{
-                solicitarPermisosManual();
-            }
-        }
-
-    } */
-
-    /*private void solicitarPermisosManual() {
-        final CharSequence[] opciones={"si","no"};
-        final AlertDialog.Builder alertOpciones=new AlertDialog.Builder(getContext());
-        alertOpciones.setTitle("¿Desea configurar los permisos de forma manual?");
-        alertOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (opciones[i].equals("si")){
-                    Intent intent=new Intent();
-                    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                    Uri uri=Uri.fromParts("package",getContext().getPackageName(),null);
-                    intent.setData(uri);
-                    startActivity(intent);
-                }else{
-                    Toast.makeText(getContext().getApplicationContext(),"Los permisos no fueron aceptados",Toast.LENGTH_SHORT).show();
-                    dialogInterface.dismiss();
-                }
-            }
-        });
-        alertOpciones.show();
-    }
-*/
-   /*private void cargarDialogoRecomendacion() {
-        AlertDialog.Builder dialogo=new AlertDialog.Builder(getContext());
-        dialogo.setTitle("Permisos Desactivados");
-        dialogo.setMessage("Debe aceptar los permisos para el correcto funcionamiento de la App");
-
-        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
-            }
-        });
-        dialogo.show();
-    }*/
-
-  /*  public void onclick(View view) {
-        cargarImagen();
-    } */
-
- /*   private void cargarImagen() {
-
-        final CharSequence[] opciones={"Tomar Foto","Cargar Imagen","Cancelar"};
-        final AlertDialog.Builder alertOpciones=new AlertDialog.Builder(getContext());
-        alertOpciones.setTitle("Seleccione una Opción");
-        alertOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (opciones[i].equals("Tomar Foto")){
-                    tomarFotografia();
-                }else{
-                    if (opciones[i].equals("Cargar Imagen")){
-                        Intent intent=new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        intent.setType("image/");
-                        startActivityForResult(intent.createChooser(intent,"Seleccione la Aplicación"),COD_SELECCIONA);
-                    }else{
-                        dialogInterface.dismiss();
-                    }
-                }
-            }
-        });
-        alertOpciones.show();
-
-    }*/
-
-    /* private void tomarFotografia() {
-        File fileImagen=new File(Environment.getExternalStorageDirectory(),RUTA_IMAGEN);
-        boolean isCreada=fileImagen.exists();
-        String nombreImagen="";
-        if(isCreada==false){
-            isCreada=fileImagen.mkdirs();
-        }
-
-        if(isCreada==true){
-            nombreImagen=(System.currentTimeMillis()/1000)+".jpg";
-        }
-
-
-        path= Environment.getExternalStorageDirectory()+
-                File.separator+RUTA_IMAGEN+File.separator+nombreImagen;
-
-        File imagen=new File(path);
-
-        Intent intent=null;
-        intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        ////
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N)
-        {
-            String authorities=getContext().getApplicationContext().getPackageName()+".provider";
-            Uri imageUri= FileProvider.getUriForFile(getContext(),authorities,imagen);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-        }else
-        {
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagen));
-        }
-        startActivityForResult(intent,COD_FOTO);
-
-        ////
-    } */
-
-
-/*
-    @Override
-    //Permisos para abrir la camara
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (permissions.length>0&& grantResults[0]==PackageManager.PERMISSION_GRANTED){
-            abrirCamara();
-        }else{
-            Toast.makeText(getContext(),"Se necesitan habilitar los permisos de la camara",Toast.LENGTH_SHORT).show();
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    */
-
-/*
-
-    private void goToCamera(){
-        Intent cameraIntent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (cameraIntent.resolveActivity(getActivity().getPackageManager()) == null){
-            startActivityForResult(cameraIntent,REQUEST_IMAGE_CAMERA);
-        }
-    } */
-
 
 
     void limpiarCajas() {
@@ -491,15 +447,22 @@ public class EspecimenesConsultarFragment extends Fragment implements Response.L
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         rq.add(stringRequest);
     }
+
+    @Override
+    public void onClick(View v) {
+
+    }
    /* @Override
     public void onActivityCreated ( @Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
         especimenesViewModel = new ViewModelProvider(this).get(Especimen.class);
         // TODO: Use the ViewModel
-
-
-
     }*/
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
 }
 
 

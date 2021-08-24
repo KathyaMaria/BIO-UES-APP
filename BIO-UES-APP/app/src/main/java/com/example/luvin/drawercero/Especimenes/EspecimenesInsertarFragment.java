@@ -125,8 +125,6 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
 
         listaRecolector = (TextInputLayout) view.findViewById(R.id.TextInputLayoutColector);
         recolector = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTextViewColector);
-        listaReino = (TextInputLayout) view.findViewById(R.id.TextInputLayoutReino);
-        reino = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTextViewReino);
         latitud=(EditText)view.findViewById(R.id.editTextCoordenadaLatitud);
         longitud=(EditText)view.findViewById(R.id.editTextCoordenadaLongitud);
         cantidadEspecimenes=(EditText)view.findViewById(R.id.editCantidadEspecimenesFragmentEspecimen);

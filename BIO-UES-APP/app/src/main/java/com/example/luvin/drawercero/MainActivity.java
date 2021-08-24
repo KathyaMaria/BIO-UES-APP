@@ -18,7 +18,6 @@ import 	androidx.appcompat.widget.Toolbar;
 
 import com.example.luvin.drawercero.Espamen.ConsultarListaEspamen;
 import com.example.luvin.drawercero.Especies.ConsultarListaEspecies;
-import com.example.luvin.drawercero.Especimen.EspecimenFragment;
 import com.example.luvin.drawercero.Login.LoginFragment;
 import com.example.luvin.drawercero.Zonas.ConsultarListaZonasFragment;
 import com.example.luvin.drawercero.Zonas.Zona;
@@ -27,8 +26,7 @@ import com.example.luvin.drawercero.interfaces.IFragments;
 import com.example.luvin.drawercero.Coleccion.InformacionFragment;
 import com.example.luvin.drawercero.Contactenos.ContactenosFragment;
 import com.example.luvin.drawercero.Dominios.ConsultarListaDominiosFragment;
-import com.example.luvin.drawercero.Especimenes.EspecimenesConsultarFragment;
-import com.example.luvin.drawercero.Investigaciones.InvestigacionesConsultarFragment;
+import com.example.luvin.drawercero.Especimenes.EspecimenesRegistrarDatoPreliminarFragment;
 import com.example.luvin.drawercero.Login.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -176,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements
             }
             else */
                 if (id==R.id.nav_especimenes) {
-                        fragmentManager.beginTransaction().replace(R.id.contenedor, new EspecimenesConsultarFragment()).commit();
+                        fragmentManager.beginTransaction().replace(R.id.contenedor, new EspecimenesRegistrarDatoPreliminarFragment()).commit();
                     }
                     else
                     if (id==R.id.nav_dominios) {
@@ -198,10 +196,10 @@ public class MainActivity extends AppCompatActivity implements
                         if (id==R.id.nav_contactenos) {
                             fragmentManager.beginTransaction().replace(R.id.contenedor, new ContactenosFragment()).commit();
                         }
-                        /*else
-                            if (id==R.id.nav_informacion) {
-                                fragmentManager.beginTransaction().replace(R.id.contenedor, new InformacionDominioFragment()).commit();
-                            }*/
+                        else
+                            if (id==R.id.nav_salir) {
+                                fragmentManager.beginTransaction().replace(R.id.contenedor, new SalirFragment()).commit();
+                            }
 
          DrawerLayout drawer=(DrawerLayout)findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
