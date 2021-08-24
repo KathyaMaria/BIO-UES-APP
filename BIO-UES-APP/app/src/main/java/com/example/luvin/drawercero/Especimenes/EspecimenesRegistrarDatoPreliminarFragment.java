@@ -170,6 +170,7 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
         btnCamara=(ImageButton) view.findViewById(R.id.tomarFotoButton);
         imageView = (ImageView)view.findViewById(R.id.imageView);
         btnGuardar = (Button) view.findViewById(R.id.buttonIngresarEspecimenes);
+        btnGaleria = (ImageButton) view.findViewById(R.id.seleccionarDesdeGaleria);
         rq = Volley.newRequestQueue(getContext());
 
 
@@ -217,6 +218,21 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 startActivityForResult(intent, PICTURE_RESULT);
+            }
+        });
+        btnGaleria.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    //Check permissions for Android 6.0+
+                    if(!checkExternalStoragePermission()){
+                        return;
+                    }
+                }
+                Intent intent=new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent,COD_SELECCIONA);
             }
         });
 
@@ -368,6 +384,13 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+
+                    }
+            case COD_SELECCIONA:
+                if (requestCode == COD_SELECCIONA)
+                    if (resultCode == Activity.RESULT_OK) {
+                       imageUri=data.getData();
+                       imageView.setImageURI(imageUri);
 
                     }
         }
