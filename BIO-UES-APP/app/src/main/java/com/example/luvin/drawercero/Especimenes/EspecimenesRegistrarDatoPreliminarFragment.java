@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,6 +14,12 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -33,6 +40,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -71,6 +79,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -115,15 +125,14 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
     TextInputLayout tipoInvestigacion;
     InvestigacionViewModel investigacionesViewModel;
     AutoCompleteTextView investigaciones = null;
-    EditText lugarColecta;
+    TextView lugarColecta;
     EditText fechaColecta;
     EditText horaColecta;
     TextInputLayout listaRecolector;
     AutoCompleteTextView recolector = null;
     TextInputLayout listaReino;
-    AutoCompleteTextView reino = null;
-    EditText latitud;
-    EditText longitud;
+    TextView latitud;
+    TextView longitud;
     EditText cantidadEspecimenes;
     EditText tipoMuestra;
     EditText caracteristicas;
@@ -189,14 +198,14 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
         view = inflater.inflate(R.layout.fragment_especimenes, container, false);
         tipoInvestigacion = (TextInputLayout) view.findViewById(R.id.TextInputLayoutInvestigacions);
         investigaciones = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTextViewInvestigacion);
-        lugarColecta=(EditText)view.findViewById(R.id.editTextLugarColecta);
+        lugarColecta=(TextView) view.findViewById(R.id.editTextLugarColecta);
         fechaColecta=(EditText)view.findViewById(R.id.editTextFechaColecta);
         horaColecta=(EditText)view.findViewById(R.id.editTextHoraColecta);
 
         listaRecolector = (TextInputLayout) view.findViewById(R.id.TextInputLayoutColector);
         recolector = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTextViewColector);
-        latitud=(EditText)view.findViewById(R.id.editTextCoordenadaLatitud);
-        longitud=(EditText)view.findViewById(R.id.editTextCoordenadaLongitud);
+        latitud=(TextView) view.findViewById(R.id.editTextCoordenadaLatitud);
+        longitud=(TextView) view.findViewById(R.id.editTextCoordenadaLongitud);
         cantidadEspecimenes=(EditText)view.findViewById(R.id.editCantidadEspecimenesFragmentEspecimen);
         tipoMuestra=(EditText)view.findViewById(R.id.editTextTipoMuestra);
         caracteristicas=(EditText)view.findViewById(R.id.editTextCaracteristicas);
@@ -219,8 +228,15 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
             }
 
         });  //this works fine*/
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
+        } else {
+            locationStart();
+        }
 
-      //  imageView.setOnClickListener((View.OnClickListener) this);
+
         btnCamara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -258,17 +274,6 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
             }
         });
 
-       /* fechaColecta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (view.getId()) {
-                    case R.id.fechaColecta:
-                        showDatePickerDialog();
-                        break;
-                }
-            }
-        });
-*/
         fechaColecta.setOnClickListener(this);
         horaColecta.setOnClickListener(this);
 
@@ -317,18 +322,26 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
         return view;
 
     }
+    private void locationStart() {
+        LocationManager mlocManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        Localizacion Local = new Localizacion();
+        Local.setMainActivity(this);
+        final boolean gpsEnabled = mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if (!gpsEnabled) {
+            Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(settingsIntent);
+        }
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
+            return;
+        }
+        mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, (LocationListener) Local);
+        mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) Local);
 
-    private void showDatePickerDialog() {
-        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                // +1 because January is zero
-                final String selectedDate = day + " / " + (month+1) + " / " + year;
-                fechaColecta.setText(selectedDate);
-            }
-        });
-
-        newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+        //coordenadas.setText("Localización agregada");
+        lugarColecta.setText("");
     }
 
     private boolean checkExternalStoragePermission() {
@@ -453,50 +466,94 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         rq.add(stringRequest);
     }
-/*
-    @Override
-    public void onClick(View view) {
-        /*switch (view.getId()) {
-            case R.id.fechaColecta:
-                showDatePickerDialog();
-                break;
-        }
-        if(v==bfecha){
-            final Calendar c= Calendar.getInstance();
-            dia=c.get(Calendar.DAY_OF_MONTH);
-            mes=c.get(Calendar.MONTH);
-            ano=c.get(Calendar.YEAR);
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    efecha.setText(dayOfMonth+"/"+(monthOfYear+1)+"/"+year);
-                }
+
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 1000) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                locationStart();
+                return;
             }
-                    ,dia,mes,ano);
-            datePickerDialog.show();
         }
-        if (v==bhora){
-            final Calendar c= Calendar.getInstance();
-            hora=c.get(Calendar.HOUR_OF_DAY);
-            minutos=c.get(Calendar.MINUTE);
+    }
 
-            TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    ehora.setText(hourOfDay+":"+minute);
+    public void setLocation(Location loc) {
+        //Obtener la direccion de la calle a partir de la latitud y la longitud
+        if (loc.getLatitude() != 0.0 && loc.getLongitude() != 0.0) {
+            try {
+                Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+                List<Address> list = geocoder.getFromLocation(
+                        loc.getLatitude(), loc.getLongitude(), 1);
+                if (!list.isEmpty()) {
+                    Address DirCalle = list.get(0);
+                    lugarColecta.setText(DirCalle.getAddressLine(0));
                 }
-            },hora,minutos,false);
-            timePickerDialog.show();
-        } */
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-   /* @Override
-    public void onActivityCreated ( @Nullable Bundle savedInstanceState){
-        super.onActivityCreated(savedInstanceState);
-        especimenesViewModel = new ViewModelProvider(this).get(Especimen.class);
-        // TODO: Use the ViewModel
-    }*/
+    /* Aqui empieza la Clase Localizacion */
+    public class Localizacion implements LocationListener {
+        EspecimenesRegistrarDatoPreliminarFragment mainActivity;
+
+        public EspecimenesRegistrarDatoPreliminarFragment getMainActivity() {
+            return mainActivity;
+        }
+
+        public void setMainActivity(EspecimenesRegistrarDatoPreliminarFragment mainActivity) {
+            this.mainActivity = mainActivity;
+        }
+
+        @Override
+        public void onLocationChanged(Location loc) {
+            // Este metodo se ejecuta cada vez que el GPS recibe nuevas coordenadas
+            // debido a la deteccion de un cambio de ubicacion
+
+            loc.getLatitude();
+            loc.getLongitude();
+
+          /*  String Text = "Mi ubicacion actual es: " + "\n Latitud = "
+                    + loc.getLatitude() + "\n Longitud = " + loc.getLongitude(); */
+
+            String Latitud = String.valueOf(loc.getLatitude());
+            String Longitud = String.valueOf(loc.getLongitude());
+            latitud.setText(Latitud);
+            longitud.setText(Longitud);
+            this.mainActivity.setLocation(loc);
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            // Este metodo se ejecuta cuando el GPS es desactivado
+            latitud.setText("GPS Desactivado");
+            longitud.setText("GPS Desactivado");
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+            // Este metodo se ejecuta cuando el GPS es activado
+            latitud.setText("GPS Activado");
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            switch (status) {
+                case LocationProvider.AVAILABLE:
+                    Log.d("debug", "LocationProvider.AVAILABLE");
+                    break;
+                case LocationProvider.OUT_OF_SERVICE:
+                    Log.d("debug", "LocationProvider.OUT_OF_SERVICE");
+                    break;
+                case LocationProvider.TEMPORARILY_UNAVAILABLE:
+                    Log.d("debug", "LocationProvider.TEMPORARILY_UNAVAILABLE");
+                    break;
+            }
+        }
+    }
+
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

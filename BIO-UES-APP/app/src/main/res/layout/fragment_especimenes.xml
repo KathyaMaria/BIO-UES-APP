@@ -120,10 +120,11 @@
                 android:layout_marginRight="24dp"
                 android:gravity="left"
                 android:text="Lugar de Colecta:"
+
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <EditText
+            <TextView
                 android:id="@+id/editTextLugarColecta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -133,6 +134,9 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
                 android:inputType="textPersonName"
+                android:clickable="true"
+                android:focusable="false"
+                android:maxLines="1"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
@@ -197,6 +201,7 @@
 
             <EditText
                 android:id="@+id/editTextHoraColecta"
+                android:hint="00:00:00"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -340,7 +345,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <EditText
+            <TextView
                 android:id="@+id/editTextCoordenadaLatitud"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -350,11 +355,12 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
                 android:gravity="left"
-                android:hint="Latitud"
-                android:inputType="numberDecimal"
-                app:layout_constraintEnd_toEndOf="parent" />
 
-            <EditText
+                app:layout_constraintEnd_toEndOf="parent" />
+                <!--android:inputType="numberDecimal" !-->
+
+
+            <TextView
                 android:id="@+id/editTextCoordenadaLongitud"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -364,8 +370,6 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
                 android:gravity="left"
-                android:hint="Longitud"
-                android:inputType="numberDecimal"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
