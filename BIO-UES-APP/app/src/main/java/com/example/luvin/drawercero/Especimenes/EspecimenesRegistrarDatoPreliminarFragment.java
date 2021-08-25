@@ -2,6 +2,8 @@ package com.example.luvin.drawercero.Especimenes;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -27,9 +29,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -51,6 +55,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.luvin.drawercero.DatePickerFragment;
 import com.example.luvin.drawercero.Investigaciones.InvestigacionViewModel;
 import com.example.luvin.drawercero.R;
 import com.google.android.material.textfield.TextInputLayout;
@@ -63,6 +68,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -96,14 +102,9 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
     private static final String CARPETA_IMAGEN = "imagenes";//carpeta donde se guardan las fotos
     private static final String DIRECTORIO_IMAGEN = CARPETA_PRINCIPAL + CARPETA_IMAGEN;//ruta carpeta de directorios
     private String path;//almacena la ruta de la imagen
-    File fileImagen;
-    Bitmap bitmap;
 
-    private final int MIS_PERMISOS = 100;
     private static final int COD_SELECCIONA = 10;
-    private static final int COD_FOTO = 20;
-    private static final int REQUEST_IMAGE_CAMERA=101;
-    private static final int REQUEST_PERMISSION_CAMERA=101;
+
 
     Button btnGuardar, btnCancelar;
     ImageButton btnCamara, btnGaleria;
@@ -136,6 +137,7 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
     String imageurl;
     private static final String TAG = "EspecimenesRegistrarDatoPreliminarFragment";
     private static final int PICTURE_RESULT = 122 ;
+    private  int dia,mes,ano,hora,minutos;
 
     public EspecimenesRegistrarDatoPreliminarFragment() {
         // Required empty public constructor
@@ -143,6 +145,40 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
 
     public static EspecimenesInsertarFragment newInstance() { return new EspecimenesInsertarFragment();
     }
+
+    @Override
+    public void onClick(View v) {
+
+            if(v==fechaColecta){
+                final Calendar c= Calendar.getInstance();
+                dia=c.get(Calendar.DAY_OF_MONTH);
+                mes=c.get(Calendar.MONTH);
+                ano=c.get(Calendar.YEAR);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        fechaColecta.setText(dayOfMonth+"/"+(monthOfYear+1)+"/"+year);
+                    }
+                }
+                        ,dia,mes,ano);
+                datePickerDialog.show();
+            }
+            if (v==horaColecta){
+                final Calendar c= Calendar.getInstance();
+                hora=c.get(Calendar.HOUR_OF_DAY);
+                minutos=c.get(Calendar.MINUTE);
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        horaColecta.setText(hourOfDay+":"+minute);
+                    }
+                },hora,minutos,false);
+                timePickerDialog.show();
+            }
+        }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -174,20 +210,6 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
         rq = Volley.newRequestQueue(getContext());
 
 
-      /*  if (ContextCompat.checkSelfPermission(getContext(), WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.CAMERA}, 1000);
-        }
-
-*/
-
-        /*btnGuardar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cargarWebService();
-            }
-        }); */
 
    /*     btnCamara.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -236,6 +258,21 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
             }
         });
 
+       /* fechaColecta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (view.getId()) {
+                    case R.id.fechaColecta:
+                        showDatePickerDialog();
+                        break;
+                }
+            }
+        });
+*/
+        fechaColecta.setOnClickListener(this);
+        horaColecta.setOnClickListener(this);
+
+
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -280,6 +317,20 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
         return view;
 
     }
+
+    private void showDatePickerDialog() {
+        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                // +1 because January is zero
+                final String selectedDate = day + " / " + (month+1) + " / " + year;
+                fechaColecta.setText(selectedDate);
+            }
+        });
+
+        newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+    }
+
     private boolean checkExternalStoragePermission() {
         int permissionCheck = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
@@ -301,78 +352,10 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
         return cursor.getString(column_index);
     }
 
-    static final int REQUEST_IMAGE_CAPTURE=1;
-
-   /*private void abrirCamara(){
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if(intent.resolveActivity(getActivity().getPackageManager()) != null){
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-
-                ContentValues values = new ContentValues();
-                values.put(MediaStore.Images.Media.TITLE, "MyPicture");
-                values.put(MediaStore.Images.Media.DESCRIPTION, "Photo taken on " + System.currentTimeMillis());
-                photoURI = getContext().getContentResolver().insert(
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-
-                //Uri photoURI = FileProvider.getUriForFile(AddActivity.this, "com.example.android.fileprovider", photoFile);
-
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-            }
-        }
-    }*/
-
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir =getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-        return image;
-    }
-    private void abrirCamara(){
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if(intent.resolveActivity(getActivity().getPackageManager()) != null){
-            //Valida que se pueda usar el recurso de la camara
-            getActivity().startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-        }
-    } // este es el que tenia antes ya funcionando
-
-
-    /*public ContentResolver getContentResolver() {
-        return null;
-    }*/
 
     private Uri photoURI;
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-       /*super.onActivityResult(requestCode,resultCode,data);
-        if(requestCode==REQUEST_IMAGE_CAPTURE && resultCode== RESULT_OK){
-            Bitmap bitmap;
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), photoURI);
-                imageView.setImageBitmap(bitmap);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        } */
         switch (requestCode) {
             case PICTURE_RESULT:
                 if (requestCode == PICTURE_RESULT)
@@ -470,11 +453,44 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         rq.add(stringRequest);
     }
-
+/*
     @Override
-    public void onClick(View v) {
+    public void onClick(View view) {
+        /*switch (view.getId()) {
+            case R.id.fechaColecta:
+                showDatePickerDialog();
+                break;
+        }
+        if(v==bfecha){
+            final Calendar c= Calendar.getInstance();
+            dia=c.get(Calendar.DAY_OF_MONTH);
+            mes=c.get(Calendar.MONTH);
+            ano=c.get(Calendar.YEAR);
 
-    }
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    efecha.setText(dayOfMonth+"/"+(monthOfYear+1)+"/"+year);
+                }
+            }
+                    ,dia,mes,ano);
+            datePickerDialog.show();
+        }
+        if (v==bhora){
+            final Calendar c= Calendar.getInstance();
+            hora=c.get(Calendar.HOUR_OF_DAY);
+            minutos=c.get(Calendar.MINUTE);
+
+            TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    ehora.setText(hourOfDay+":"+minute);
+                }
+            },hora,minutos,false);
+            timePickerDialog.show();
+        } */
+
+
    /* @Override
     public void onActivityCreated ( @Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
@@ -487,5 +503,6 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
         void onFragmentInteraction(Uri uri);
     }
 }
+
 
 

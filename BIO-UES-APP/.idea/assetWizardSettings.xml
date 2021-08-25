@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../../Users/katia%20maria/AppData/Local/Android/Sdk/icons/material/materialicons/search/baseline_search_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../../Users/katia%20maria/AppData/Local/Android/Sdk/icons/material/materialicons/watch_later/baseline_watch_later_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +28,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_search" />
+                            <entry key="outputName" value="watch" />
                             <entry key="sourceFile" value="C:\Users\katia maria\Desktop\TRABAJO DE GRADUACION\DrawerCero33\DrawerCero" />
                           </map>
                         </option>

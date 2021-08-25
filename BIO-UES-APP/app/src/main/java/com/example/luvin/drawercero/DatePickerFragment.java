@@ -3,12 +3,14 @@ package com.example.luvin.drawercero;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.widget.DatePicker;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import java.util.Calendar;
 
-public class DatePickerFragment extends DialogFragment {
+public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
 
     private DatePickerDialog.OnDateSetListener listener;
 
@@ -33,4 +35,8 @@ public class DatePickerFragment extends DialogFragment {
         return new DatePickerDialog(getActivity(), listener, year, month, day);
     }
 
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+    }
 }

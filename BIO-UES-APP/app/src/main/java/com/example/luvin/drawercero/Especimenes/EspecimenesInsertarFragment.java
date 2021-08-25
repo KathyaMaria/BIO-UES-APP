@@ -3,6 +3,7 @@ package com.example.luvin.drawercero.Especimenes;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -21,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -44,6 +46,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.luvin.drawercero.DatePickerFragment;
 import com.example.luvin.drawercero.Investigaciones.InvestigacionViewModel;
 import com.example.luvin.drawercero.R;
 import com.google.android.material.textfield.TextInputLayout;
@@ -138,35 +141,32 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
         btnGuardar = (Button) view.findViewById(R.id.buttonIngresarEspecimenes);
         rq = Volley.newRequestQueue(getContext());
 
-
-      /*  if(validaPermisos()){
-            btnCamara.setEnabled(true);
-        }else{
-            btnCamara.setEnabled(false);
-        } */
-
         if (ContextCompat.checkSelfPermission(getContext(), WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.CAMERA}, 1000);
         }
 
+
         btnCamara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             //   if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
-                 //  if(ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)==
-                    //        PackageManager.PERMISSION_GRANTED){
-                     //  abrirCamara();
               tomarFoto(view);
             }
-                  //  }else{
-                     //   ActivityCompat.requestPermissions(getActivity(),new String[]{ Manifest.permission.CAMERA},
-                     //           REQUEST_PERMISSION_CAMERA);
-                  //  }
-               // }else abrirCamara();
-           // }
+
         });
+        fechaColecta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (view.getId()) {
+                    case R.id.fechaColecta:
+                        showDatePickerDialog();
+                        break;
+                }
+            }
+        });
+
+
 
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,6 +212,20 @@ public class EspecimenesInsertarFragment extends Fragment implements Response.Li
         return view;
 
     }
+
+    private void showDatePickerDialog() {
+        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                // +1 because January is zero
+                final String selectedDate = day + " / " + (month+1) + " / " + year;
+                fechaColecta.setText(selectedDate);
+            }
+        });
+
+        newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+    }
+
     String mCurrentPhotoPath;
     private File createImageFile() throws IOException{
 

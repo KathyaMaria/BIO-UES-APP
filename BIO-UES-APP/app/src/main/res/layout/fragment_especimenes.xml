@@ -150,19 +150,35 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <EditText
-                android:id="@+id/editTextFechaColecta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            android:id="@+id/editTextFechaColecta"
+            android:hint="mm/dd/aaaa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:clickable="true"
+            android:focusable="false"
+            android:maxLines="1"
+            android:inputType="date"
+
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+           <!-- <ImageButton
+                android:id="@+id/btnCalendario"
+                android:layout_width="373dp"
+                android:layout_height="61dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
-                android:clickable="true"
-                android:focusable="false"
-                android:inputType="date"
-                android:maxLines="1"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:src="@android:drawable/ic_menu_my_calendar"
+                app:layout_constraintStart_toStartOf="parent" />
+                !-->
 
             <TextView
                 android:id="@+id/horaColecta"
@@ -189,9 +205,24 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
                 android:inputType="time"
+                android:clickable="true"
+                android:focusable="false"
+                android:maxLines="1"
                 app:layout_constraintEnd_toEndOf="parent" />
 
 
+        <!--    <ImageButton
+                android:id="@+id/btnHora"
+                android:layout_width="373dp"
+                android:layout_height="61dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:src="@android:drawable/ic_lock_idle_alarm"
+                app:layout_constraintStart_toStartOf="parent" />
+                !-->
             <TextView
                 android:id="@+id/Colector"
                 android:layout_width="match_parent"
