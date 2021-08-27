@@ -120,7 +120,7 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
     ImageButton btnCamara, btnGaleria;
     ImageView imageView;
     public static final int MY_DEFAULT_TIMEOUT = 50000;
-
+    File fileImagen;
     EditText nombreComun;
     TextInputLayout tipoInvestigacion;
     InvestigacionViewModel investigacionesViewModel;
@@ -218,16 +218,6 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
         btnGaleria = (ImageButton) view.findViewById(R.id.seleccionarDesdeGaleria);
         rq = Volley.newRequestQueue(getContext());
 
-
-
-   /*     btnCamara.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                abrirCamara();
-
-            }
-
-        });  //this works fine*/
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -253,9 +243,32 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
                 values.put(MediaStore.Images.Media.TITLE, "MyPicture");
                 values.put(MediaStore.Images.Media.DESCRIPTION, "Photo taken on " + System.currentTimeMillis());
                 imageUri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                startActivityForResult(intent, PICTURE_RESULT);
+
+
+                File miFile=new File(Environment.getExternalStorageDirectory(),DIRECTORIO_IMAGEN);
+                boolean isCreada=miFile.exists();
+
+                if(isCreada==false){
+                    isCreada=miFile.mkdirs();
+                }
+
+                if(isCreada==true) {
+                    Long consecutivo = System.currentTimeMillis() / 1000;
+                    String nombre = consecutivo.toString() + ".jpg";
+
+                    path = Environment.getExternalStorageDirectory() + File.separator + DIRECTORIO_IMAGEN
+                            + File.separator + nombre;//indicamos la ruta de almacenamiento
+
+                    fileImagen = new File(path);
+
+
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                    startActivityForResult(intent, PICTURE_RESULT);
+
+
+                }
+
             }
         });
         btnGaleria.setOnClickListener(new View.OnClickListener() {
@@ -292,18 +305,17 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
 
         tipoInvestigacion = (TextInputLayout) view.findViewById(R.id.tipoColecciones);
         investigaciones = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTextViewColecciones);
-     //   arrayListInvestigaciones = new ArrayList<>();
-//        arrayListInvestigaciones.add(String.valueOf(investigacionesViewModel.getIdTipo()));
+        /*
+        arrayListInvestigaciones = new ArrayList<>();
+        arrayListInvestigaciones.add(String.valueOf(investigacionesViewModel.getIdTipo()));
+        ArrayAdapter<String> arrayAdapter =new ArrayAdapter<String>(getActivity().getApplicationContext(),
+        android.R.layout.activity_list_item,TipoColeccion);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
+        android.R.layout.simple_spinner_dropdown_item, arrayListInvestigaciones);
+        investigaciones.setAdapter(arrayAdapter);
+        investigaciones.setThreshold(1);
 
-
-        // ArrayAdapter<String> arrayAdapter =new ArrayAdapter<String>(getActivity().getApplicationContext(),
-        //       android.R.layout.activity_list_item,TipoColeccion);
-     //   ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
-       //         android.R.layout.simple_spinner_dropdown_item, arrayListInvestigaciones);
-        //investigaciones.setAdapter(arrayAdapter);
-        //investigaciones.setThreshold(1);
-
-        //Seleccion de los tipos de Dominio
+        Seleccion de los tipos de Dominio
        /* investigaciones.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
@@ -340,7 +352,6 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
         mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, (LocationListener) Local);
         mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) Local);
 
-        //coordenadas.setText("Localización agregada");
         lugarColecta.setText("");
     }
 
@@ -365,8 +376,6 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
         return cursor.getString(column_index);
     }
 
-
-    private Uri photoURI;
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         switch (requestCode) {
