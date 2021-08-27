@@ -331,6 +331,43 @@
                     android:layout_marginRight="24dp"
                     android:gravity="center" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="371dp"
+                    android:layout_height="272dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="24dp"
+                    android:gravity="center" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="371dp"
+                    android:layout_height="272dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="24dp"
+                    android:gravity="center" />
+            </LinearLayout>
             <TextView
                 android:id="@+id/coordenadas"
                 android:layout_width="match_parent"
@@ -371,6 +408,43 @@
                 android:layout_marginRight="24dp"
                 android:gravity="left"
                 app:layout_constraintEnd_toEndOf="parent" />
+
+
+            <TextView
+                android:id="@+id/Colector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:gravity="left"
+                android:text="Técnica Recolección:"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TextInputLayoutTecnicaRecoleccion"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextViewTecnicaRecoleccion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:inputType="none"
+                    android:text="Técnica Recolección" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/CantidadEspecimenesFragmentEspecimen"

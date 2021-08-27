@@ -68,14 +68,6 @@ public class ConsultarListaEspecies extends Fragment implements Response.Listene
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ConsultarListaEspeciesFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static ConsultarListaEspecies newInstance(String param1, String param2,String param3, String param4,
                                                      String param5, String param6,String param7, String param8 ) {
@@ -90,7 +82,6 @@ public class ConsultarListaEspecies extends Fragment implements Response.Listene
         args.putString(ARG_PARAM7, param7);
         args.putString(ARG_PARAM8, param8);
 
-        //  args.putString(ARG_PARAM4,param4);
         fragment.setArguments(args);
         return fragment;
     }
@@ -123,8 +114,6 @@ public class ConsultarListaEspecies extends Fragment implements Response.Listene
         recyclerEspecies.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerEspecies.setHasFixedSize(true);
 
-        // request= Volley.newRequestQueue(getContext());
-
         cargarWebService();
 
         return vista;
@@ -142,7 +131,6 @@ public class ConsultarListaEspecies extends Fragment implements Response.Listene
         String url=ip+"/BIO-UES-APP/ConsultarTaxonomia.php";
 
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url, (String) null,this,this);
-        // request.add(jsonObjectRequest);
         com.example.luvin.drawercero.VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
@@ -166,8 +154,6 @@ public class ConsultarListaEspecies extends Fragment implements Response.Listene
                 especies=new Especies();
                 JSONObject jsonObject=null;
                 jsonObject=json.getJSONObject(i);
-
-                //    especies.setIdEspecies(jsonObject.optInt("id"));
                 especies.setNombreDominio(jsonObject.optString("nombreDominio"));
                 especies.setNombreReino(jsonObject.optString("nombreReino"));
                 especies.setNombreFilum(jsonObject.optString("nombreFilum"));
@@ -226,16 +212,6 @@ public class ConsultarListaEspecies extends Fragment implements Response.Listene
         return false;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

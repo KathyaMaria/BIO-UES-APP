@@ -48,7 +48,6 @@ public class SignupActivity extends AppCompatActivity {
     ProgressBar progressBar;
     RequestQueue requestQueue; //permitara la conexion directamente del web service
     StringRequest stringRequest;
-    String URL_SERVIDOR = "http://192.168.1.18/BIO-UES-APP/registro.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

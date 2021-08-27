@@ -12,7 +12,7 @@ public class Especimen extends ViewModel {
     private String lugarColecta;
     private Date fechaColecta;
     private Time horaColecta;
-    private String colector;
+    private String idColector;
     private String reino;
     private Float latitud;
     private Float longitud;
@@ -34,7 +34,7 @@ public class Especimen extends ViewModel {
         this.lugarColecta = lugarColecta;
         this.fechaColecta = fechaColecta;
         this.horaColecta = horaColecta;
-        this.colector = colector;
+        this.idColector = colector;
         this.reino = reino;
         this.latitud = latitud;
         this.longitud = longitud;
@@ -88,11 +88,11 @@ public class Especimen extends ViewModel {
     }
 
     public String getColector() {
-        return colector;
+        return idColector;
     }
 
     public void setColector(String colector) {
-        this.colector = colector;
+        this.idColector = colector;
     }
 
     public String getReino() {

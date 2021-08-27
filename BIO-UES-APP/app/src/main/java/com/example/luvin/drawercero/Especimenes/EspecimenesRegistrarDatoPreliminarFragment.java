@@ -101,11 +101,12 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
     RequestQueue rq;
     JsonRequest jrq;
 
+    //Estos son para los paramatros para el webService, segun los campos de la base
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
     private String mParam1;
     private String mParam2;
+
     private OnFragmentInteractionListener mListener; //llamado de la interfaz
 
     private static final String CARPETA_PRINCIPAL = "misImagenesApp/";//directorio principal
@@ -118,35 +119,24 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
 
     Button btnGuardar, btnCancelar;
     ImageButton btnCamara, btnGaleria;
-    ImageView imageView;
-    public static final int MY_DEFAULT_TIMEOUT = 50000;
+    ImageView imageView, imageView2, imageView3;
     File fileImagen;
-    EditText nombreComun;
-    TextInputLayout tipoInvestigacion;
-    InvestigacionViewModel investigacionesViewModel;
+    TextInputLayout tipoInvestigacion, listaRecolector, listaTecnica;
     AutoCompleteTextView investigaciones = null;
-    TextView lugarColecta;
-    EditText fechaColecta;
-    EditText horaColecta;
-    TextInputLayout listaRecolector;
+    TextView lugarColecta, latitud, longitud;
     AutoCompleteTextView recolector = null;
-    TextInputLayout listaReino;
-    TextView latitud;
-    TextView longitud;
-    EditText cantidadEspecimenes;
-    EditText tipoMuestra;
-    EditText caracteristicas;
-    EditText peso;
-    EditText tamaño;
-    EditText habitat;
-    private String mCurrentPhotoPath;
+    AutoCompleteTextView tecnica= null;
+    EditText cantidadEspecimenes, tipoMuestra, caracteristicas, peso, tamaño,habitat,  fechaColecta, horaColecta, nombreComun;
     private ContentValues values;
     private Uri imageUri;
     private Bitmap thumbnail;
     String imageurl;
     private static final String TAG = "EspecimenesRegistrarDatoPreliminarFragment";
-    private static final int PICTURE_RESULT = 122 ;
+    private static final int PICTURE_RESULT = 122, MY_DEFAULT_TIMEOUT = 50000; ;
     private  int dia,mes,ano,hora,minutos;
+
+    private Bitmap imagePicked;
+    private int numberImageSelected = 0;
 
     public EspecimenesRegistrarDatoPreliminarFragment() {
         // Required empty public constructor
@@ -201,9 +191,10 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
         lugarColecta=(TextView) view.findViewById(R.id.editTextLugarColecta);
         fechaColecta=(EditText)view.findViewById(R.id.editTextFechaColecta);
         horaColecta=(EditText)view.findViewById(R.id.editTextHoraColecta);
-
         listaRecolector = (TextInputLayout) view.findViewById(R.id.TextInputLayoutColector);
         recolector = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTextViewColector);
+        listaTecnica = (TextInputLayout) view.findViewById(R.id.TextInputLayoutTecnicaRecoleccion);
+        tecnica = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTextViewTecnicaRecoleccion);
         latitud=(TextView) view.findViewById(R.id.editTextCoordenadaLatitud);
         longitud=(TextView) view.findViewById(R.id.editTextCoordenadaLongitud);
         cantidadEspecimenes=(EditText)view.findViewById(R.id.editCantidadEspecimenesFragmentEspecimen);
@@ -214,6 +205,8 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
         habitat=(EditText)view.findViewById(R.id.editTextHabitat);
         btnCamara=(ImageButton) view.findViewById(R.id.tomarFotoButton);
         imageView = (ImageView)view.findViewById(R.id.imageView);
+        imageView2 = (ImageView)view.findViewById(R.id.imageView2);
+        imageView3 = (ImageView)view.findViewById(R.id.imageView3);
         btnGuardar = (Button) view.findViewById(R.id.buttonIngresarEspecimenes);
         btnGaleria = (ImageButton) view.findViewById(R.id.seleccionarDesdeGaleria);
         rq = Volley.newRequestQueue(getContext());
@@ -257,10 +250,9 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
                     String nombre = consecutivo.toString() + ".jpg";
 
                     path = Environment.getExternalStorageDirectory() + File.separator + DIRECTORIO_IMAGEN
-                            + File.separator + nombre;//indicamos la ruta de almacenamiento
+                            + File.separator + nombre;//indicamos la ruta de almacenamiento, galeria del telefono
 
                     fileImagen = new File(path);
-
 
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
@@ -289,6 +281,35 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
 
         fechaColecta.setOnClickListener(this);
         horaColecta.setOnClickListener(this);
+
+
+        imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    //Check permissions for Android 6.0+
+                    if(!checkExternalStoragePermission()){
+                        return;
+                    }
+                }
+                numberImageSelected = 2;
+                startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI), COD_SELECCIONA);
+            }
+        });
+
+        imageView3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    //Check permissions for Android 6.0+
+                    if(!checkExternalStoragePermission()){
+                        return;
+                    }
+                }
+                numberImageSelected = 3;
+                startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI), COD_SELECCIONA);
+            }
+        });
 
 
         btnGuardar.setOnClickListener(new View.OnClickListener() {
@@ -392,15 +413,47 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
 
                     }
             case COD_SELECCIONA:
-                if (requestCode == COD_SELECCIONA)
-                    if (resultCode == Activity.RESULT_OK) {
+                if (requestCode == COD_SELECCIONA && data != null )
+                     imageUri = data.getData();
+                try {
+                    imagePicked = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imageUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                SetImage(imagePicked, numberImageSelected);
+
+                  /*  if (resultCode == Activity.RESULT_OK) {
                        imageUri=data.getData();
                        imageView.setImageURI(imageUri);
 
-                    }
+                    } */
         }
     }
 
+    private void SetImage(Bitmap imageSelected, int ImageNumberSelected){
+        switch (ImageNumberSelected){
+            case 1:
+                imageView.setImageBitmap(imageSelected);
+                numberImageSelected = 0;
+                break;
+
+            case 2:
+                imageView2.setImageBitmap(imageSelected);
+                numberImageSelected = 0;
+                break;
+
+            case 3:
+                imageView3.setImageBitmap(imageSelected);
+                numberImageSelected = 0;
+                break;
+
+            default:
+                Toast.makeText(getContext(), "NO SE PUDO COLOCAR LA IMAGEN", Toast.LENGTH_SHORT).show();
+                numberImageSelected = 0;
+                break;
+        }
+    }
 
     public void onErrorResponse(VolleyError error) {
         Toast.makeText(getContext(), "No Se pudó registrar el especimen " + error.toString() + nombreComun.getText().toString(),
@@ -454,7 +507,6 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
                 parametros.put("fechaColecta",fechaColecta.getText().toString().trim());
                 parametros.put("horaColecta",horaColecta.getText().toString().trim());
                 parametros.put("listaRecolector",listaRecolector.getEditText().toString().trim());
-                parametros.put("listaReino",listaReino.getEditText().toString().trim());
                 parametros.put("latitud",latitud.getText().toString().trim());
                 parametros.put("longitud",longitud.getText().toString().trim());
                 parametros.put("cantidadEspecimenes",cantidadEspecimenes.getText().toString().trim());
