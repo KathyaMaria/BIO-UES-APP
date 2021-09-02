@@ -66,6 +66,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.luvin.drawercero.DatePickerFragment;
 import com.example.luvin.drawercero.Investigaciones.InvestigacionViewModel;
 import com.example.luvin.drawercero.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONObject;
@@ -121,7 +123,7 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
     ImageButton btnCamara, btnGaleria;
     ImageView imageView, imageView2, imageView3;
     File fileImagen;
-    TextInputLayout tipoInvestigacion, listaRecolector, listaTecnica;
+    TextInputLayout tipoInvestigacion, listaRecolector,tecnicaRecoleccion;
     AutoCompleteTextView investigaciones = null;
     TextView lugarColecta, latitud, longitud;
     AutoCompleteTextView recolector = null;
@@ -160,7 +162,8 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
                         fechaColecta.setText(dayOfMonth+"/"+(monthOfYear+1)+"/"+year);
                     }
                 }
-                        ,dia,mes,ano);
+                //      ,dia,mes,ano);
+                        ,ano,mes,dia);
                 datePickerDialog.show();
             }
             if (v==horaColecta){
@@ -171,7 +174,7 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
                 TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        horaColecta.setText(hourOfDay+":"+minute);
+                        horaColecta.setText(hourOfDay+":"+minute );
                     }
                 },hora,minutos,false);
                 timePickerDialog.show();
@@ -188,13 +191,17 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
         view = inflater.inflate(R.layout.fragment_especimenes, container, false);
         tipoInvestigacion = (TextInputLayout) view.findViewById(R.id.TextInputLayoutInvestigacions);
         investigaciones = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTextViewInvestigacion);
+
         lugarColecta=(TextView) view.findViewById(R.id.editTextLugarColecta);
         fechaColecta=(EditText)view.findViewById(R.id.editTextFechaColecta);
         horaColecta=(EditText)view.findViewById(R.id.editTextHoraColecta);
+
         listaRecolector = (TextInputLayout) view.findViewById(R.id.TextInputLayoutColector);
         recolector = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTextViewColector);
-        listaTecnica = (TextInputLayout) view.findViewById(R.id.TextInputLayoutTecnicaRecoleccion);
+
+        tecnicaRecoleccion = (TextInputLayout) view.findViewById(R.id.TextInputLayoutTecnicaRecoleccion);
         tecnica = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTextViewTecnicaRecoleccion);
+
         latitud=(TextView) view.findViewById(R.id.editTextCoordenadaLatitud);
         longitud=(TextView) view.findViewById(R.id.editTextCoordenadaLongitud);
         cantidadEspecimenes=(EditText)view.findViewById(R.id.editCantidadEspecimenesFragmentEspecimen);
@@ -208,8 +215,17 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
         imageView2 = (ImageView)view.findViewById(R.id.imageView2);
         imageView3 = (ImageView)view.findViewById(R.id.imageView3);
         btnGuardar = (Button) view.findViewById(R.id.buttonIngresarEspecimenes);
-        btnGaleria = (ImageButton) view.findViewById(R.id.seleccionarDesdeGaleria);
+    //    btnGaleria = (ImageButton) view.findViewById(R.id.seleccionarDesdeGaleria);
         rq = Volley.newRequestQueue(getContext());
+
+        FloatingActionButton fab=(FloatingActionButton)view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view,"Una Accion",Snackbar.LENGTH_LONG).setAction("Accion",null).show();
+            }
+        });
+
 
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
@@ -220,7 +236,7 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
         }
 
 
-        btnCamara.setOnClickListener(new View.OnClickListener() {
+        btnCamara.setOnClickListener(new View.OnClickListener() { //Boton que llama al evento para cargar la camara
             @Override
             public void onClick(View v) {
 
@@ -263,7 +279,7 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
 
             }
         });
-        btnGaleria.setOnClickListener(new View.OnClickListener() {
+       /* btnGaleria.setOnClickListener(new View.OnClickListener() { //btn para seleccionar imagenes desde la galeria
             @Override
             public void onClick(View v) {
 
@@ -277,10 +293,25 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
                 intent.setType("image/*");
                 startActivityForResult(intent,COD_SELECCIONA);
             }
-        });
+        }); */
 
         fechaColecta.setOnClickListener(this);
         horaColecta.setOnClickListener(this);
+
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    //Check permissions for Android 6.0+
+                    if(!checkExternalStoragePermission()){
+                        return;
+                    }
+                }
+                numberImageSelected = 1;
+                startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI), COD_SELECCIONA);
+            }
+        });
 
 
         imageView2.setOnClickListener(new View.OnClickListener() {
@@ -315,7 +346,7 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registrar_especimen("http://198.168.1.18:80/BIO-UES-APP/EspecimenesController.php");
+                registrar_especimen("http://198.168.1.26:80/BIO-UES-APP/registrarEspecimen.php");
             }
         });
 
@@ -502,14 +533,15 @@ public class EspecimenesRegistrarDatoPreliminarFragment extends Fragment impleme
             @Override
             protected Map<String,String>  getParams() throws AuthFailureError{
                 Map<String,String> parametros=new HashMap<String, String>();
-                parametros.put("idTipo",tipoInvestigacion.getEditText().toString().trim());
+                parametros.put("idInvestigacion",tipoInvestigacion.getEditText().toString().trim());
                 parametros.put("lugarColecta",lugarColecta.getText().toString().trim());
                 parametros.put("fechaColecta",fechaColecta.getText().toString().trim());
                 parametros.put("horaColecta",horaColecta.getText().toString().trim());
-                parametros.put("listaRecolector",listaRecolector.getEditText().toString().trim());
+                parametros.put("idUser",listaRecolector.getEditText().toString().trim());
                 parametros.put("latitud",latitud.getText().toString().trim());
                 parametros.put("longitud",longitud.getText().toString().trim());
-                parametros.put("cantidadEspecimenes",cantidadEspecimenes.getText().toString().trim());
+                parametros.put("tecnicaRecoleccion",tecnicaRecoleccion.getEditText().toString().trim());
+                parametros.put("cantidad",cantidadEspecimenes.getText().toString().trim());
                 parametros.put("tipoMuestra",tipoMuestra.getText().toString().trim());
                 parametros.put("caracteristicas",caracteristicas.getText().toString().trim());
                 parametros.put("peso",peso.getText().toString().trim());

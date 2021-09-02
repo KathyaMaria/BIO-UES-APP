@@ -59,22 +59,23 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edtPassword" />
+
             <Button
                 android:id="@+id/btnLogin"
-                android:layout_width="match_parent"
+                android:layout_width="234dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="15dp"
-                android:text="Iniciar Sesión"
                 android:background="#009688"
+                android:text="Iniciar Sesión"
                 android:textColor="#FFF"
                 android:textSize="18sp"
                 app:backgroundTint="#009688" />
 
             <Button
                 android:id="@+id/btnCancelarLogin"
-                android:layout_width="match_parent"
+                android:layout_width="234dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="30dp"

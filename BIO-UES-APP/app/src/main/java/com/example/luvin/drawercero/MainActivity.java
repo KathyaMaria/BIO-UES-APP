@@ -83,14 +83,14 @@ public class MainActivity extends AppCompatActivity implements
             e.printStackTrace();
         }
 
-
+/*
         FloatingActionButton fab=(FloatingActionButton)findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view,"Una Accion",Snackbar.LENGTH_LONG).setAction("Accion",null).show();
             }
-        });
+        });*/
 
         DrawerLayout drawer=(DrawerLayout)findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this, drawer,
@@ -198,8 +198,9 @@ public class MainActivity extends AppCompatActivity implements
                         }
                         else
                             if (id==R.id.nav_salir) {
-                                fragmentManager.beginTransaction().replace(R.id.contenedor, new SalirFragment()).commit();
-                            }
+                                signOut();
+                                return true;
+                        }
 
          DrawerLayout drawer=(DrawerLayout)findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

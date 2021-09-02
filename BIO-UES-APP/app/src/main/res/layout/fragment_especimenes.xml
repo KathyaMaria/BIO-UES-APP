@@ -289,7 +289,7 @@
 
                 <ImageButton
                     android:id="@+id/tomarFotoButton"
-                    android:layout_width="85dp"
+                    android:layout_width="194dp"
                     android:layout_height="74dp"
                     android:layout_marginStart="100dp"
                     android:layout_marginLeft="16dp"
@@ -300,7 +300,8 @@
                     android:src="@android:drawable/ic_menu_camera"
                     android:text="Capturar" />
 
-                <ImageButton
+
+                <!--    <ImageButton
                     android:id="@+id/seleccionarDesdeGaleria"
                     android:layout_width="85dp"
                     android:layout_height="74dp"
@@ -309,10 +310,25 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginRight="24dp"
-                    android:src="@android:drawable/ic_menu_gallery" />
+                    android:src="@android:drawable/ic_menu_gallery" /> !-->
+
+                />
 
 
             </FrameLayout>
+            <TextView
+                android:id="@+id/notificacionGaleria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:gravity="left"
+                android:text="*Para cargar imagenes desde galeria presione sobre cada marco"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                app:layout_constraintStart_toStartOf="parent" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -329,7 +345,13 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginRight="24dp"
-                    android:gravity="center" />
+                    android:cropToPadding="true"
+                    android:gravity="center"
+                    android:padding="1dp"
+                    android:background="@drawable/border"
+                    android:adjustViewBounds = "true"
+                    android:scaleType="fitXY" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -348,7 +370,11 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginRight="24dp"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:padding="1dp"
+                    android:background="@drawable/border"
+                    android:adjustViewBounds = "true"
+                    android:scaleType="fitXY"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -366,7 +392,11 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginRight="24dp"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:padding="1dp"
+                    android:background="@drawable/border"
+                    android:adjustViewBounds = "true"
+                    android:scaleType="fitXY"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/coordenadas"
@@ -648,7 +678,14 @@
                     app:layout_constraintVertical_bias="0.659" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margen"
+                app:srcCompat="@drawable/ic_more"/>
         </LinearLayout>
     </ScrollView>
+
 </RelativeLayout>

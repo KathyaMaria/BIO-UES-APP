@@ -34,7 +34,7 @@
         android:gravity="left"
         android:inputType="textMultiLine"
         android:text="BIENVENIDO / A: \n\nTu plataforma de accceso a la información sobre las especies de la Biodiversidad salvadoreña.
-        \n\n BIO-UES es una plataforma para el almacenamiento de datoConsultarDominiosPruebas sobre las especies naturales administrado por la Escuela de Biologia de La Universidad de El Salvador."
+        \n\n BIO-UES es una plataforma para el almacenamiento de datos obre las especies naturales administrado por la Escuela de Biologia de La Universidad de El Salvador."
         android:textAppearance="?android:attr/textAppearanceMedium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

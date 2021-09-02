@@ -62,7 +62,13 @@ public class InformacionFragment extends Fragment {
 
     private List<DatoConsultarColeccionPrueba> getAllData(){
         return new ArrayList<DatoConsultarColeccionPrueba>() {{
-            add(new DatoConsultarColeccionPrueba("Colección Cangrejos","Nueva Dominio Cangrejo",  R.drawable.cangrejo1, "Los crustáceos constituyen un enorme y diverso grupo del reino animal, con grandes utilidades ecológicas, alimenticias y económicas; lo que ha permitido en muchas partes del mundo despertar un interés en el campo de la investigación. Uno de los subgrupos más importantes de Crustáceos Decápodos, lo constituyen los cangrejos tanto marinos como de agua dulce, los cuales se distribuyen desde mar adentro, costas ,playas, baja marea, esteros, zonas dulces, terrestres, ríos,  lagos, lagunas y  otros cuerpos de agua de menor volumen.\n" +
+            add(new DatoConsultarColeccionPrueba("Colección Cangrejos","Nueva Dominio Cangrejo",
+                    R.drawable.cangrejo1, "Los crustáceos constituyen un enorme y diverso grupo del reino animal," +
+                    " con grandes utilidades ecológicas, alimenticias y económicas; lo que ha permitido en muchas partes del" +
+                    " mundo despertar un interés en el campo de la investigación. Uno de los subgrupos más importantes de" +
+                    " Crustáceos Decápodos, lo constituyen los cangrejos tanto marinos como de agua dulce," +
+                    " los cuales se distribuyen desde mar adentro, costas ,playas, baja marea, esteros, zonas dulces, " +
+                    "terrestres, ríos,  lagos, lagunas y  otros cuerpos de agua de menor volumen.\n" +
                     "\n "));
             add(new DatoConsultarColeccionPrueba("Colección Macrohongos", "Por qué es importante saberlo",R.drawable.cangrejo2, ""));
             add(new DatoConsultarColeccionPrueba("Colección MacroAlgas", "¿Que son las MacroAlgas?",R.drawable.macroalga1, ""));

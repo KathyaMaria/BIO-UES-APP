@@ -14,8 +14,5 @@
         android:title="Enviar a mi correo"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_option3"
-        android:title="Archivar"
-        app:showAsAction="never" />
+
 </menu>

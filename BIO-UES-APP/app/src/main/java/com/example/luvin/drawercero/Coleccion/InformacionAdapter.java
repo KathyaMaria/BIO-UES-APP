@@ -90,9 +90,6 @@ public class InformacionAdapter extends RecyclerView.Adapter<InformacionAdapter.
                         case R.id.action_option2:
                             Toast.makeText(context, "op2", Toast.LENGTH_SHORT).show();
                             break;
-                        case R.id.action_option3:
-                            Toast.makeText(context, "op3", Toast.LENGTH_SHORT).show();
-                            break;
                     }
                     return true;
                 }
