@@ -50,7 +50,8 @@ public class InformacionAdapter extends RecyclerView.Adapter<InformacionAdapter.
 
     @Override
     public int getItemCount() {
-        return datoConsultarColeccionPruebas.size();
+
+           return datoConsultarColeccionPruebas.size();
     }
 
     public  class ViewHolder extends  RecyclerView.ViewHolder{

@@ -1,191 +1,204 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Dominio: "
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:layout_weight="2"/>
-
-        <TextView
-            android:id="@+id/txtIdDominios"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Dominio "
-            android:textSize="17sp"
-            android:layout_weight=".8"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Reino: "
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:layout_weight="2"/>
-
-        <TextView
-            android:id="@+id/txtReino"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Reino "
-            android:textSize="17sp"
-            android:layout_weight=".8"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Filum: "
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:layout_weight="2"/>
-
-        <TextView
-           android:id="@+id/txtFilum"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Filum "
-            android:textSize="17sp"
-            android:layout_weight=".8"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Clase: "
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:layout_weight="2"/>
-
-        <TextView
-            android:id="@+id/txtClase"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Clase "
-            android:textSize="17sp"
-            android:layout_weight=".8"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Orden: "
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:layout_weight="2"/>
-
-        <TextView
-            android:id="@+id/txtOrden"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Orden "
-            android:textSize="17sp"
-            android:layout_weight=".8"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Familia: "
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:layout_weight="2"/>
-
-        <TextView
-            android:id="@+id/txtFamilia"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Familia"
-            android:textSize="17sp"
-            android:layout_weight=".8"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Genero: "
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:layout_weight="2"/>
-
-        <TextView
-            android:id="@+id/txtGenero"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Genero"
-            android:textSize="17sp"
-            android:layout_weight=".8"/>
-
-    </LinearLayout>
-
-    <LinearLayout
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <TextView
+    android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Especie: "
-        android:textSize="17sp"
-        android:textStyle="bold"
-        android:layout_weight="2"/>
+        card_view:cardUseCompatPadding="true"
+        card_view:cardElevation="4dp"
+        card_view:cardCornerRadius="3dp"
+        android:layout_margin="6dp">
 
-    <TextView
-        android:id="@+id/txtEspecie"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Especie "
-        android:textSize="17sp"
-        android:layout_weight=".8"/>
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="6dp"
+            android:gravity="left">
 
-</LinearLayout>
-    <TextView
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/teal_700"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <TextView
+                    android:layout_width="191dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="2"
+                    android:text="Dominio: "
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
-</LinearLayout>
+                <TextView
+                    android:id="@+id/txtIdDominios"
+                    android:layout_width="246dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight=".8"
+                    android:text="Dominio: "
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="191dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="2"
+                    android:text="Reino: "
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtReino"
+                    android:layout_width="246dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight=".8"
+                    android:text="Reino: "
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="191dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="2"
+                    android:text="Filum: "
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtFilum"
+                    android:layout_width="246dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight=".8"
+                    android:text="Filum "
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="191dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="2"
+                    android:text="Clase: "
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtClase"
+                    android:layout_width="246dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight=".8"
+                    android:text="Clase "
+                    android:textSize="17sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="191dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="2"
+                    android:text="Orden: "
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtOrden"
+                    android:layout_width="246dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight=".8"
+                    android:text="Orden: "
+                    android:textSize="17sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="191dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="2"
+                    android:text="Familia: "
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtFamilia"
+                    android:layout_width="246dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight=".8"
+                    android:text="Familia "
+                    android:textSize="17sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="191dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="2"
+                    android:text="Género: "
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtGenero"
+                    android:layout_width="246dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight=".8"
+                    android:text="Genero "
+                    android:textSize="17sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="191dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="2"
+                    android:text="Especie: "
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtEspecie"
+                    android:layout_width="246dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight=".8"
+                    android:text="Especie "
+                    android:textSize="17sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
